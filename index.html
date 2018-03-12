@@ -351,39 +351,14 @@
 
       
         
-          
-            <h1 id="Maven学习"><a href="#Maven学习" class="headerlink" title="Maven学习"></a>Maven学习</h1><p>初次了解软件构造和maven，仅记录学习maven的过程。<br>本文不包含Maven的安装，环境配置，项目创建等内容，主要记录Maven的特点和概念。</p>
-<p><strong>1. Maven？</strong></p>
-<p>Maven主要服务于基于Java平台的项目构建，项目信息管理。通俗一点说，Maven不仅是一个构建工具，它是一个<strong>自动化的构建工具</strong>。在软件开发中，其实是有专人负责去构建的(构建是一个过程，包含编译，测试，打包，部署等)，但Maven所做的是把构建的一系列工作<strong>像流水线一样自动完成</strong>。</p>
-<p><strong>2.Maven使用入门</strong></p>
-<ul>
-<li><strong>POM.xml</strong><br>POM(Project Object Model,项目对象模型)，顾名思义，它<strong>定义了项目的基本信息，描述项目如何构建等</strong>。举一个简单的例子： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;</span><br><span class="line">   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">   xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0</span><br><span class="line">   http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">   &lt;groupId&gt;com.juvenxu.mvnbook&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;Hello-world&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">&lt;project&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>可以发现代码中定义了groupId,artifactId,version：<br>groupId一般是组织或者公司相关<br>artifactId是唯一的，如上面的例子中是Hello-world<br>version指定版本，SNAPSHOT意为快照，表示当前版本还在开发中，不稳定。</p>
-<blockquote>
-<p><strong>POM.xml可以说是整个Maven项目的核心，我们只需要修改POM.xml即可以达到不同的构建目标，声明依赖关系等。</strong></p>
-</blockquote>
-<ul>
-<li><p><strong>Maven的文件夹默认格式</strong><br>Maven工程是自动化的，所以我们需要<strong>按照约定创建目录</strong>，这样Maven才能在自动化的构建过程中找到源文件，通常约定的结构是这样的：<br><strong><br>|—src                源码<br>|—|—main            存放主程序<br>|—|—|—java        存放Java源文件<br>|—|—|—resources    存放框架或其他工具的配置文件<br>|—|—test            存放测试程序<br>|—|—|—java        存放Java测试的源文件<br>|—|—|—resources    存放测试的配置文件<br>|—POM.xml                Maven工程的核心配置文件
-</strong></p>
-<p>  手工生成上述目录可以说是很麻烦了，Maven解决了这个问题，提供<strong>Archetype</strong>帮助我们快速勾勒出项目骨架。<br>  Maven3环境下，执行：<br>  mvn archetype:generate<br>  然后会看到很多Archetype可供我们选择，这帮助我们快速构建项目骨架，节省了很多时间。<br>  Eclipse下开发Maven工程：会自动生成上述文件目录，我们只需要按约定放好源文件即可。</p>
-</li>
-</ul>
-<ul>
-<li><p><strong>Maven的构建过程概述</strong></p>
-<p>  我们先看几个主要的Maven命令：<br>  mvn clean compile     //编译<br>  mvn clean test        //测试<br>  mvn clean package    //打包<br>  mvn clean install    //安装项目输出的jar包到本地仓库中</p>
-<p>  先解释一下命令的含义，clean告诉Maven清理输出目录target/(默认情况下，Maven构建的所有输出都在该目录中)，compile告诉Maven编译项目主代码，项目主代码将会编译输出到target/classes目录下。<br>  上述命令其实是对应了Maven的插件以及插件目标，clean是clean插件的目标，test是test插件    的目标。</p>
-<p>  <strong>编译—-&gt;测试—-&gt;打包—-&gt;安装</strong><br>  执行test之前会执行compile，同样执行package之前会执行test。</p>
-</li>
-</ul>
-<p><strong>3.Maven坐标和依赖</strong>  </p>
-<p>坐标这个概念始于平面几何，它可以用来唯一的标识一个元素。<br>在《Maven实战中》很生动的将其描述为：</p>
-<blockquote>
-<p>Maven给Java类库(例如jar文件)世界引入了经纬，让他们变得有秩序，于是我们可以借助它来有序的管理依赖，轻松的解决那些繁琐的依赖问题。</p>
-</blockquote>
-
-          
+          <p>初次了解软件构造和maven，仅记录学习maven的过程。<br>本文不包含Maven的安装，环境配置，项目创建等内容，主要记录Maven的特点和概念。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/11/Maven/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
