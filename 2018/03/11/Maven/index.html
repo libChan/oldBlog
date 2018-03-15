@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Chan">
 <meta property="og:description" content="初次了解软件构造和maven，仅记录学习maven的过程。本文不包含Maven的安装，环境配置，项目创建等内容，主要记录Maven的特点和概念。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-12T15:35:27.299Z">
+<meta property="og:updated_time" content="2018-03-12T15:51:02.436Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven初步学习">
 <meta name="twitter:description" content="初次了解软件构造和maven，仅记录学习maven的过程。本文不包含Maven的安装，环境配置，项目创建等内容，主要记录Maven的特点和概念。">
@@ -328,6 +328,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/11/Maven/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/03/11/Maven/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -378,7 +388,7 @@
 </li>
 </ul>
 <p><strong>3.Maven坐标和依赖</strong>  </p>
-<p>坐标这个概念始于平面几何，它可以用来唯一的标识一个元素。<br>在《Maven实战中》很生动的将其描述为：</p>
+<p>坐标这个概念始于平面几何，它可以用来唯一的标识一个元素。<br>《Maven实战中》里，很生动的将其描述为：</p>
 <blockquote>
 <p>Maven给Java类库(例如jar文件)世界引入了经纬，让他们变得有秩序，于是我们可以借助它来有序的管理依赖，轻松的解决那些繁琐的依赖问题。</p>
 </blockquote>
@@ -432,6 +442,14 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
 
   
 
@@ -704,6 +722,47 @@
 
 
 
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'libChan.github.io',
+            repo: 'li# MUST HAVE, The repo you use to store Gitment comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'a000d7befa2186983b5357ad234fa2fd6dfd5ca8',
+            
+                client_id: 'bf3d122fb4e34e7f3ae0'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
 
 
 
