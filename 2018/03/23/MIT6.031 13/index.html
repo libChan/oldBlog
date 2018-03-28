@@ -92,7 +92,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/FpBVhxj.jpg">
 <meta property="og:image" content="https://i.imgur.com/KndNmHD.jpg">
-<meta property="og:updated_time" content="2018-03-25T12:52:25.909Z">
+<meta property="og:image" content="https://i.imgur.com/BIfiPgk.jpg">
+<meta property="og:updated_time" content="2018-03-27T08:37:42.635Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT-6.031-13">
 <meta name="twitter:description" content="Reading 13:Abstraction Functions &amp;amp; Rep Invariants关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。Reading 13:Abstraction Functions &amp;amp; Rep Invariants">
@@ -516,10 +517,34 @@ public Tweet(String author, String text, Date timestamp) {
 </blockquote>
 <p>另一种是用不可变数据类型(immutable)，比如我们可以采用不可变的时间对象<code>java.time.ZonedDateTime</code>替换可变的<code>java.util.Date</code>。</p>
 <h3 id="Immutable-wrappers-around-mutable-data-types"><a href="#Immutable-wrappers-around-mutable-data-types" class="headerlink" title="Immutable wrappers around mutable data types"></a>Immutable wrappers around mutable data types</h3><p>Java的集合类提供了一个有趣的折中：<strong>不可变包装器(immutable wrappers)</strong><br>////历史遗留问题//////</p>
-<h2 id="Rep-invariant-and-abstraction-function"><a href="#Rep-invariant-and-abstraction-function" class="headerlink" title="Rep invariant and abstraction function"></a>Rep invariant and abstraction function</h2><p>我们设计ADT时，可以考虑“两种值的空间”的关系。两种值的空间，喵喵喵？介绍一下它们：<br>1.暴露给客户的值的组成空间(rep values)：这个空间由实例化后的值组成。简言之，你的ADT会实例成一个对象吧？但更常见的是，我们经常需要一个小型的网络对象，所以这个值，是非常复杂的。<br>2.抽象值空间(abstract values)：由你设计的ADT支持的抽象数据类型组成。比如，一个无边界整型的抽象值空间可能是数学整数，实际上，它被实现为一个基本类型的整型数组(有界的)。</p>
+<h2 id="Rep-invariant-and-abstraction-function"><a href="#Rep-invariant-and-abstraction-function" class="headerlink" title="Rep invariant and abstraction function"></a>Rep invariant and abstraction function</h2><p>我们设计ADT时，可以考虑“两种值的空间”的关系。两种值的空间，喵喵喵？介绍一下它们：<br>1.暴露给客户的值的组成空间(rep values)：这个空间由实例化后的值组成。简言之，你的ADT会实例成一个对象吧？但更常见的是，我们经常需要一个小型的网络对象，所以这个值，是非常复杂的。<br>2.抽象值空间(abstract values)：由你设计的ADT支持的抽象数据类型组成。比如，一个无边界整型的抽象值空间可能是数学上的整数，实际上，它被实现为一个基本类型的整型数组(有界的)。</p>
 <p>现在，假设，我们采用一个字符串代表一组字符：</p>
 <pre><code>public class CharSet {
     private String s;
+    ...
+}
+</code></pre><p><img src="https://i.imgur.com/BIfiPgk.jpg" alt=""><br>R(rep values)包含了字符串，A(abstract values)包含了字符的数学集合。</p>
+<ul>
+<li>A中每个值都能在R中找到原象，即这个映射关系是满射的。</li>
+<li>A中一些值可以在R中找到不止一个原象。</li>
+<li>R中不是所有的值都有映射。<br>满射，不一定单射，所以不一定双射。<br>例如“abbc”是非法字符串，因为我们定义不能内含重复字符。</li>
+</ul>
+<p>我们为了刻画这两个空间的关系，给出两个定义：<br>1.AF：一个抽象函数映射使得R-&gt;A</p>
+<blockquote>
+<p>AF: R-&gt;A</p>
+</blockquote>
+<p>2.RI：个人理解为一个衡量R是否合格的指标</p>
+<blockquote>
+<p>RI: R-&gt;boolean</p>
+</blockquote>
+<p>RI可以被形容为一个集合，是AF成立的子集。</p>
+<p>我们应该在代码中记录AF和RI，紧挨着你设计的数据表示(rep)，比如：</p>
+<pre><code>public class CharSet {
+    private String s;
+    // Rep invariant:
+    //    s contains no repeated characters
+    // Abstraction Function:
+    //   represents the set of characters found in s
     ...
 }
 </code></pre>
@@ -730,6 +755,7 @@ public Tweet(String author, String text, Date timestamp) {
       
 
       
+	
 
     </div>
   </aside>
