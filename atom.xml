@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.libchan.top/"/>
-  <updated>2018-03-28T02:30:02.502Z</updated>
+  <updated>2018-04-03T13:14:45.388Z</updated>
   <id>http://www.libchan.top/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>重写equals方法</title>
+    <link href="http://www.libchan.top/2018/04/03/%E9%87%8D%E5%86%99equals/"/>
+    <id>http://www.libchan.top/2018/04/03/重写equals/</id>
+    <published>2018-04-03T13:07:52.887Z</published>
+    <updated>2018-04-03T13:14:45.388Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="重写equals方法"><a href="#重写equals方法" class="headerlink" title="重写equals方法"></a>重写equals方法</h1><p>虽然Object是一个具体类，但它有一些非final的方法是被设计成override的，必要的时候，我们需要<strong>按照约定</strong>覆盖它们，适用于所有的类，本文介绍如何覆盖equals方法。<br><a id="more"></a></p><h2 id="什么时候需要覆盖equals方法？"><a href="#什么时候需要覆盖equals方法？" class="headerlink" title="什么时候需要覆盖equals方法？"></a>什么时候需要覆盖equals方法？</h2><p>首先我们得先明白，未被覆盖的equals方法比较的是什么。<br>未覆盖的equals方法比较的是两个对象是否引用同一块内存，如果是则返回true。<br>往往我们有自己的“逻辑相等”概念去判断两个对象是否相同，这时！我们需要重写equals方法。</p><h2 id="如何覆盖equals方法？"><a href="#如何覆盖equals方法？" class="headerlink" title="如何覆盖equals方法？"></a>如何覆盖equals方法？</h2><p>当我们设计自己的“等价概念”时，是要遵守通用约定的，以下选自Object的规范：</p><ul><li><strong>自反性(reflexive)</strong>：对于任何非null的引用值x, x.equals(x)必须返回true。</li><li><strong>对称性(symmetric)</strong>：对于任何非null的引用值x和y，当且仅当y.equals(x)返回true时，x.equals(y)必须返回true。</li><li><strong>传递性(transitive)</strong>：对于任何非null的引用值x，y和z，如果x.equals(y)返回true,并且y.equals(z)也返回true，那么x.equals(z)也必须返回true。</li><li><strong>一致性(consistent)</strong>：对于任何非null的引用值x和y，只要equals的比较操作在对象中所用的信息没有被修改，多次调用x.equals(y)就会一致的返回true，或者false。</li><li>对于然和非null的引用值x，x.equals(null)必须返回false。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;重写equals方法&quot;&gt;&lt;a href=&quot;#重写equals方法&quot; class=&quot;headerlink&quot; title=&quot;重写equals方法&quot;&gt;&lt;/a&gt;重写equals方法&lt;/h1&gt;&lt;p&gt;虽然Object是一个具体类，但它有一些非final的方法是被设计成override的，必要的时候，我们需要&lt;strong&gt;按照约定&lt;/strong&gt;覆盖它们，适用于所有的类，本文介绍如何覆盖equals方法。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://www.libchan.top/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>MIT-6.031-13</title>
