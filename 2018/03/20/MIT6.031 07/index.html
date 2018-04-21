@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>mit-6.031-07 | Chan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="MIT讲义" />
+  
+  
+  
+  
+  <meta name="description" content="Reading 7:Designing Specifications关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。MIT-6.031-07 Reading 7 : Designing Specifications">
+<meta name="keywords" content="MIT讲义">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MIT-6.031-07">
+<meta property="og:url" content="http://www.libchan.top/2018/03/20/MIT6.031 07/index.html">
+<meta property="og:site_name" content="Chan">
+<meta property="og:description" content="Reading 7:Designing Specifications关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。MIT-6.031-07 Reading 7 : Designing Specifications">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/NLsYCzi.jpg">
+<meta property="og:image" content="https://i.imgur.com/8caEGzH.jpg">
+<meta property="og:image" content="https://i.imgur.com/9qoCpZX.jpg">
+<meta property="og:updated_time" content="2018-03-28T02:29:32.042Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MIT-6.031-07">
+<meta name="twitter:description" content="Reading 7:Designing Specifications关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。MIT-6.031-07 Reading 7 : Designing Specifications">
+<meta name="twitter:image" content="https://i.imgur.com/NLsYCzi.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Chan" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Startseite</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archive</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Kategorien</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Schreib etwas..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Beiträge',
+            PAGES: 'Seiten',
+            CATEGORIES: 'Kategorien',
+            TAGS: 'Tags',
+            UNTITLED: '(Unbenannt)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-MIT6.031 07" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      MIT-6.031-07
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/03/20/MIT6.031 07/" class="article-date">
+	  <time datetime="2018-03-20T09:33:10.888Z" itemprop="datePublished">2018-03-20</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/MIT/">MIT</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Reading-7-Designing-Specifications"><a href="#Reading-7-Designing-Specifications" class="headerlink" title="Reading 7:Designing Specifications"></a>Reading 7:Designing Specifications</h1><p>关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。<br><a href="http://web.mit.edu/6.031/www/sp17/classes/07-designing-specs/" target="_blank" rel="noopener">MIT-6.031-07 Reading 7 : Designing Specifications</a><br><a id="more"></a></p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>本文主要从不同的specs实例对比中，介绍如何设计specs。</p>
+<ol>
+<li>确定性(deterministic)：规格是否定义明确？例如一个输入对应一个输出，还是可以有多种可能。</li>
+<li>说明性()：规格是否说明“到位”？例如是否说明了如何输入，或者对输出结果的要求。</li>
+<li>强度：是否有足够的数据集支撑？例如一个合理的小数集，或者大集合（显然两者起到不同的作用）。   </li>
+</ol>
+<p>上述三个维度有时不可兼得，则我们根据实际权衡，折中达到最优。</p>
+<h2 id="Deterministic-VS-underdetermined-specs"><a href="#Deterministic-VS-underdetermined-specs" class="headerlink" title="Deterministic VS underdetermined specs"></a>Deterministic VS underdetermined specs</h2><pre><code>static int findFirst(int[] arr, int val) {
+    for (int i = 0; i &lt; arr.length; i++) {
+        if (arr[i] == val) return i;
+    }
+    return arr.length;
+}                   
+
+static int findLast(int[] arr, int val) {
+    for (int i = arr.length - 1 ; i &gt;= 0; i--) {
+        if (arr[i] == val) return i;
+    }
+    return -1;
+}
+</code></pre><p>上面是两个方法,First和Last只是为了区分它们的实现方式。在实际代码中，它们都是<code>find</code>方法。<br>再来看一下<code>find</code>的规格(specification):</p>
+<pre><code>static int findExactlyOne(int[] arr, int val)
+requires: val occurs exactly once in arr
+effects:  returns index i such that arr[i] = val 
+</code></pre><p><strong>这个规格<code>findExactlyOne</code>是确定(deterministic)的</strong>：即当输入满足前置条件时，<code>findFirst</code>和<code>findLast</code>方法都可以正确输出，即达成后置条件。</p>
+<p>这里，还有另一个规格<code>findOneOrMore,AnyIndex</code>：</p>
+<pre><code>static int findOneOrMore,AnyIndex(int[] arr, int val)
+requires: val occurs in arr
+effects:  returns index i such that arr[i] = val
+</code></pre><p>它不同于<code>findExactlyOne</code>的是，前置条件变成了val在arr中出现即可，这样弱化了前置条件，导致这个规格是不确定的。若val多次出现，则effects并没有说明返回的index是哪一个，<strong>它是不确定的</strong>。</p>
+<p>注意，此处的<strong>不确定</strong>并不是传统意义的。费确定性代码指的是，给它相同的输入，可能会有不同的输出。<br>为了避免混淆，我们把这种不确定性称为<strong> underdetermined</strong>。</p>
+<h2 id="Declarative-VS-operational-specs"><a href="#Declarative-VS-operational-specs" class="headerlink" title="Declarative VS operational specs"></a>Declarative VS operational specs</h2><p>大致可以分成两种：<code>Declarative spec</code>和<code>Operational spec</code>。<br>声明性的<code>(Declarative spec)</code>：不会描述细节和中间过程。反而注重描述输出结果的属性，与初始输入的关系。<br>操作性的<code>(Operational spec)</code>：描述了方法执行的步骤，细节等，例如伪代码。</p>
+<p><strong> 对于spec，我们更青睐<code>Declarative spec</code> ,因为它简短，易于理解，且更重要的是，它不会暴露具体实现的细节给客户</strong>。</p>
+<p>但是，有时程序员会在spec里写操作性的实现细节利于维护者维护。注意，这不是一个好习惯！这可以在方法内部进行说明，但一定不要让它出现在spec里。</p>
+<p>举个例子吧：</p>
+<pre><code>static String join(String delimiter, String[] elements)
+effects: append together the strings in elements, but at each step,
+         if there are more elements left, insert delimiter
+</code></pre><p>这是一个操作性的(operational)spec。<br>修改它，让它变得declarative，可以这样：</p>
+<pre><code>effects: returns concatenation of elements in order, 
+         with delimiter inserted between each pair of adjacent elements
+</code></pre><p>更改之后，仅仅说明了属性，没有暴露具体实现。</p>
+<h2 id="Stronger-VS-weaker-specs"><a href="#Stronger-VS-weaker-specs" class="headerlink" title="Stronger VS weaker specs"></a>Stronger VS weaker specs</h2><p>现在我们来考虑这种情况：假设你想要改变一个方法，无视方法的具体实现和spec本身。现在已经有客户采用已有的spec了。是新写一个spec呢？还是用原来的就可以？<br>以上得出，我们需要一个标准来判断两个spec的强弱。S2强于S1，则：</p>
+<ul>
+<li>S2的前置条件弱于S1</li>
+<li>S2的后置条件强于S1</li>
+</ul>
+<blockquote>
+<p>简言之，想要加强一个spec，<strong>弱化前置，强化后置</strong>。</p>
+</blockquote>
+<p>为什么要强化spec？取代原有spec。<br>发现了没，这种“强化升级”，其实也提升了用户体验。减少对用户的需求，却增加了“回报”，让用户放心。</p>
+<p>来，再看看我们之前提到的specs：</p>
+<pre><code>static int findExactlyOne(int[] a, int val)
+requires: val occurs exactly once in a
+effects:  returns index i such that a[i] = val
+</code></pre><p>弱化前置条件：</p>
+<pre><code>static int findOneOrMore,AnyIndex(int[] a, int val)
+requires: val occurs at least once in a
+effects:  returns index i such that a[i] = val
+</code></pre><p>强化后置条件：</p>
+<pre><code>static int findOneOrMore,FirstIndex(int[] a, int val)
+requires: val occurs at least once in a
+effects:  returns lowest index i such that a[i] = val
+</code></pre><p>再强化后置条件：</p>
+<pre><code>static int findCanBeMissing(int[] a, int val)
+requires: nothing
+effects:  returns index i such that a[i] = val,or -1 if no such i
+</code></pre><h2 id="Diagramming-specification"><a href="#Diagramming-specification" class="headerlink" title="Diagramming specification"></a>Diagramming specification</h2><p>我们可以利用图形表示spec，往往更清晰更直观。</p>
+<ul>
+<li>假设Java世界是一个无限空间，我们用一个点代表一个方法，就像这样：<br><img src="https://i.imgur.com/NLsYCzi.jpg" alt=""></li>
+</ul>
+<ul>
+<li><p>spec是有一个合理范围的，对于能实现该spec的方法，我们把它放在范围内，反之则在范围外。<br><code>findFirst</code>和<code>findLast</code>都满足<code>findOneOrMore,AnyIndex</code>，所以在范围内：<br><img src="https://i.imgur.com/8caEGzH.jpg" alt=""></p>
+</li>
+<li><p>再后来我们做了什么事情呢？我们强化了<code>findOneOrMore,AnyIndex</code>，问题来了，怎么表示？<br>1.强化后置：<br>这意味着程序员需要对输出更严格，这导致有的方法之前满足<code>findOneOrMore,AnyIndex</code>(S1)，但现在不满足<code>findOneOrMore,FirstIndex</code>(S2)，那它在S2外，S1里。<br>2.弱化前置：<br>这意味着要处理更多的输入情况。<br>下图中，S2强于S1，<code>findLast</code>在S2范围外，<code>findFirst</code>满足S2，在范围内。<br><img src="https://i.imgur.com/9qoCpZX.jpg" alt=""></p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MIT讲义/">MIT讲义</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/23/MIT6.031 13/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          MIT-6.031-13
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/11/Maven/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Maven初步学习</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Inhalt</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Reading-7-Designing-Specifications"><span class="nav-number">1.</span> <span class="nav-text">Reading 7:Designing Specifications</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deterministic-VS-underdetermined-specs"><span class="nav-number">1.2.</span> <span class="nav-text">Deterministic VS underdetermined specs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Declarative-VS-operational-specs"><span class="nav-number">1.3.</span> <span class="nav-text">Declarative VS operational specs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stronger-VS-weaker-specs"><span class="nav-number">1.4.</span> <span class="nav-text">Stronger VS weaker specs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Diagramming-specification"><span class="nav-number">1.5.</span> <span class="nav-text">Diagramming specification</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2018 Chan All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Chan
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 Chan All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

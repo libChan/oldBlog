@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>mit-6.031-13 | Chan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="MIT讲义" />
+  
+  
+  
+  
+  <meta name="description" content="Reading 13:Abstraction Functions &amp;amp; Rep Invariants关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。Reading 13:Abstraction Functions &amp;amp; Rep Invariants">
+<meta name="keywords" content="MIT讲义">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MIT-6.031-13">
+<meta property="og:url" content="http://www.libchan.top/2018/03/23/MIT6.031 13/index.html">
+<meta property="og:site_name" content="Chan">
+<meta property="og:description" content="Reading 13:Abstraction Functions &amp;amp; Rep Invariants关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。Reading 13:Abstraction Functions &amp;amp; Rep Invariants">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/FpBVhxj.jpg">
+<meta property="og:image" content="https://i.imgur.com/KndNmHD.jpg">
+<meta property="og:image" content="https://i.imgur.com/BIfiPgk.jpg">
+<meta property="og:updated_time" content="2018-03-28T02:30:02.502Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MIT-6.031-13">
+<meta name="twitter:description" content="Reading 13:Abstraction Functions &amp;amp; Rep Invariants关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。Reading 13:Abstraction Functions &amp;amp; Rep Invariants">
+<meta name="twitter:image" content="https://i.imgur.com/FpBVhxj.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Chan" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Startseite</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archive</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Kategorien</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Schreib etwas..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Beiträge',
+            PAGES: 'Seiten',
+            CATEGORIES: 'Kategorien',
+            TAGS: 'Tags',
+            UNTITLED: '(Unbenannt)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-MIT6.031 13" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      MIT-6.031-13
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/03/23/MIT6.031 13/" class="article-date">
+	  <time datetime="2018-03-23T03:45:24.397Z" itemprop="datePublished">2018-03-23</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/MIT/">MIT</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Reading-13-Abstraction-Functions-amp-Rep-Invariants"><a href="#Reading-13-Abstraction-Functions-amp-Rep-Invariants" class="headerlink" title="Reading 13:Abstraction Functions &amp; Rep Invariants"></a>Reading 13:Abstraction Functions &amp; Rep Invariants</h1><p>关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。<br><a href="http://web.mit.edu/6.031/www/sp17/classes/13-abstraction-functions-rep-invariants/#reading_13_abstraction_functions_rep_invariants" target="_blank" rel="noopener">Reading 13:Abstraction Functions &amp; Rep Invariants</a><br><a id="more"></a></p>
+<h2 id="Invariants"><a href="#Invariants" class="headerlink" title="Invariants"></a>Invariants</h2><p>一个好的抽象数据类型(以下简称ADT)，很重要的一点是，它要<strong>保护自己的不变性</strong>。注意，优秀ADT是自我保护不变性的，而不是依赖规范客户的行为。<br>其实，当ADT可以自我保护的时候，程序员的工作也就更简化了，你可能调试更少的bug等等。</p>
+<h3 id="Immutability"><a href="#Immutability" class="headerlink" title="Immutability"></a>Immutability</h3><p>来，先看看不变性(immutable)</p>
+<pre><code>/**
+* This immutable data type represents a tweet from Twitter.
+*/
+public class Tweet {
+
+    public String author;
+    public String text;
+    public Date timestamp;
+
+    /**
+     * Make a Tweet.
+     * @param author    Twitter user who wrote the tweet
+     * @param text      text of the tweet
+     * @param timestamp date/time when the tweet was sent
+ */
+    public Tweet(String author, String text, Date timestamp) {
+        this.author = author;
+        this.text = text;
+        this.timestamp = timestamp;
+    }
+}
+</code></pre><p>一个问题，我们怎么保证一旦创建推特，作者，内容就不能改变？<br>上面的示例，我们可以发现，用户可以访问所有内容，而并不能保证作者和内容不能修改的条件。</p>
+<pre><code>Tweet t = new Tweet(&quot;justinbieber&quot;, 
+                    &quot;Thanks to all those beliebers out there inspiring me every day&quot;, 
+                    new Date());
+t.author = &quot;rbmllr&quot;;
+</code></pre><p>可以这样直接修改作者，所以这是一个<strong>表示性暴露(representation exposure)</strong>的例子，意味着类外能直接修改类内的表示。<br>改一下：</p>
+<pre><code>public class Tweet {
+
+    private final String author;
+    private final String text;
+    private final Date timestamp;
+
+    public Tweet(String author, String text, Date timestamp) {
+        this.author = author;
+        this.text = text;
+        this.timestamp = timestamp;
+    }
+
+    /** @return Twitter user who wrote the tweet */
+    public String getAuthor() {
+        return author;
+    }
+
+    /** @return text of the tweet */
+    public String getText() {
+        return text;
+    }
+
+    /** @return date/time when the tweet was sent */
+    public Date getTimestamp() {
+        return timestamp;
+    }
+}
+</code></pre><p><code>private</code>表示了属性只能在类内访问，<code>public</code>则表示可以在类外访问。<code>final</code>关键字则帮助我们确保了属性的不变性，<code>final</code>修饰的对象，一旦初始化后，值不能改变。<br>但，其实依旧存在表示泄露(rep exposure), 我们来看一下如果用户这样操作：</p>
+<pre><code>/** @return a tweet that retweets t, one hour later*/
+public static Tweet retweetLater(Tweet t) {
+    Date d = t.getTimestamp();
+    d.setHours(d.getHours()+1);
+    return new Tweet(&quot;rbmllr&quot;, t.getText(), d);
+}
+</code></pre><p>该方法<code>retweetLater</code>的功能是，get一条推特，1小时候用户重新发一条一样的推特(转发功能)。<br>bug来了，Date是可变数据类型(mutable)，<code>getTimestamp</code>方法返回t的时间，类型是Date，且令d = t.getTimestamp(),这导致d指向了t的timestamp。然后d利用<code>setHours</code>改变了自己的时间，其实！这也就改变了t的时间，因为t和d都引用了同一块内存空间，看个快照会清楚一些：<br><img src="https://i.imgur.com/FpBVhxj.jpg" alt=""><br>辛辛苦苦保护的属性，还是被破坏了……<br>冷静分析一下问题所在，<code>Tweet</code>类泄露的可变的(mutable)的引用给客户。<br>我们可以用<strong>防御式复制(defensive copying)</strong>来debug：复制可变数据(mutable)类型的对象，防止数据暴露给客户：</p>
+<pre><code>public Date getTimestamp() {
+    return new Date(timestamp.getTime());
+}
+</code></pre><p>注意到没，返回的是一个新的Date，是不同于原来的timestamp的新的引用。<br>可变数据类型(mutable)通常有一个复制构造函数(copy constructor)，允许你创建新实例复制已有实例的值。<br>举个例子，<code>StringBuilder</code>的copy constructor需要一个String类型的数据。另一种复制一个可变数据类型的方法是<code>clone()</code>。</p>
+<p>虽然我们采用了防御式复制，但我们还没完全解决表示性泄露(rep exposure)。看看下面这个用户代码：</p>
+<pre><code>/** @return a list of 24 inspiring tweets, one per hour today */
+public static List&lt;Tweet&gt; tweetEveryHourToday () {
+    List&lt;Tweet&gt; list = new ArrayList&lt;Tweet&gt;(); 
+    Date date = new Date();
+    for (int i = 0; i &lt; 24; i++) {
+        date.setHours(i);
+        list.add(new Tweet(&quot;rbmllr&quot;, &quot;keep it up! you can do it&quot;, date));
+    } 
+    return list;
+}
+</code></pre><p>这段代码每小时创建一条tweet，但其实所有24条tweet的时间都是最后一条的时间，我们来看个快照图就很清楚：<br><img src="https://i.imgur.com/KndNmHD.jpg" alt=""><br>每条tweet引用的都是同一个date。<br>我们可以改进一下之前的防御性复制，这样修改构造函数：</p>
+<pre><code>public Tweet(String author, String text, Date timestamp) {
+    this.author = author;
+    this.text = text;
+    this.timestamp = new Date(timestamp.getTime());
+}
+</code></pre><p>一般来说，程序员应该仔细检查变量类型和返回的ADT类型。如果有可变(mutable)数据类型的，确保你的代码没有暴露它们的引用，防止rep exposure。</p>
+<p>哎？你或许觉得这有点资源浪费？为什么非要复制啊？为什么不能直接在spec里写明白？像这样：</p>
+<pre><code>/**
+ * Make a Tweet.
+ * @param author    Twitter user who wrote the tweet
+ * @param text      text of the tweet
+ * @param timestamp date/time when the tweet was sent. Caller must never 
+ *                   mutate this Date object again!
+ */
+public Tweet(String author, String text, Date timestamp) {
+</code></pre><p>这种方法在“某些时候”是可行的，比如当可变数据类型过大的时候，防御性复制就很低效了。</p>
+<p>虽然防御性复制损失空间，但总体来说很必要。为什么？我认为这是在赋予程序一种避免bug的的能力。所以ADT保护自己不变性，保护表示性不泄露，这是它的基础能力。</p>
+<blockquote>
+<p><strong>让你的ADT成为一个优秀的ADT吧！</strong></p>
+</blockquote>
+<p>另一种是用不可变数据类型(immutable)，比如我们可以采用不可变的时间对象<code>java.time.ZonedDateTime</code>替换可变的<code>java.util.Date</code>。</p>
+<h3 id="Immutable-wrappers-around-mutable-data-types"><a href="#Immutable-wrappers-around-mutable-data-types" class="headerlink" title="Immutable wrappers around mutable data types"></a>Immutable wrappers around mutable data types</h3><p>Java的集合类提供了一个有趣的折中：<strong>不可变包装器(immutable wrappers)</strong><br>////历史遗留问题//////</p>
+<h2 id="Rep-invariant-and-abstraction-function"><a href="#Rep-invariant-and-abstraction-function" class="headerlink" title="Rep invariant and abstraction function"></a>Rep invariant and abstraction function</h2><p>我们设计ADT时，可以考虑“两种值的空间”的关系。两种值的空间，喵喵喵？介绍一下它们：<br>1.暴露给客户的值的组成空间(rep values)：这个空间由实例化后的值组成。简言之，你的ADT会实例成一个对象吧？但更常见的是，我们经常需要一个小型的网络对象，所以这个值，是非常复杂的。<br>2.抽象值空间(abstract values)：由你设计的ADT支持的抽象数据类型组成。比如，一个无边界整型的抽象值空间可能是数学上的整数，实际上，它被实现为一个基本类型的整型数组(有界的)。</p>
+<p>现在，假设，我们采用一个字符串代表一组字符：</p>
+<pre><code>public class CharSet {
+    private String s;
+    ...
+}
+</code></pre><p><img src="https://i.imgur.com/BIfiPgk.jpg" alt=""><br>R(rep values)包含了字符串，A(abstract values)包含了字符的数学集合。</p>
+<ul>
+<li>A中每个值都能在R中找到原象，即这个映射关系是满射的。</li>
+<li>A中一些值可以在R中找到不止一个原象。</li>
+<li>R中不是所有的值都有映射。<br>满射，不一定单射，所以不一定双射。<br>例如“abbc”是非法字符串，因为我们定义不能内含重复字符。</li>
+</ul>
+<p>我们为了刻画这两个空间的关系，给出两个定义：<br>1.AF：一个抽象函数映射使得R-&gt;A</p>
+<blockquote>
+<p>AF: R-&gt;A</p>
+</blockquote>
+<p>2.RI：个人理解为一个衡量R是否合格的指标</p>
+<blockquote>
+<p>RI: R-&gt;boolean</p>
+</blockquote>
+<p>RI可以被形容为一个集合，是AF成立的子集。</p>
+<p>我们应该在代码中记录AF和RI，紧挨着你设计的数据表示(rep)，比如：</p>
+<pre><code>public class CharSet {
+    private String s;
+    // Rep invariant:
+    //    s contains no repeated characters
+    // Abstraction Function:
+    //   represents the set of characters found in s
+    ...
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MIT讲义/">MIT讲义</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/03/time- 2018-4-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          重写equals方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/20/MIT6.031 07/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">MIT-6.031-07</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Inhalt</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Reading-13-Abstraction-Functions-amp-Rep-Invariants"><span class="nav-number">1.</span> <span class="nav-text">Reading 13:Abstraction Functions &amp; Rep Invariants</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Invariants"><span class="nav-number">1.1.</span> <span class="nav-text">Invariants</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Immutability"><span class="nav-number">1.1.1.</span> <span class="nav-text">Immutability</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Immutable-wrappers-around-mutable-data-types"><span class="nav-number">1.1.2.</span> <span class="nav-text">Immutable wrappers around mutable data types</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rep-invariant-and-abstraction-function"><span class="nav-number">1.2.</span> <span class="nav-text">Rep invariant and abstraction function</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2018 Chan All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Chan
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 Chan All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
