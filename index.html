@@ -13,7 +13,7 @@
 <meta property="og:title" content="Chan">
 <meta property="og:url" content="http://www.libchan.top/index.html">
 <meta property="og:site_name" content="Chan">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chan">
   
@@ -197,16 +197,13 @@
     
 
     
-      <div id="homelogo" class="homelogo" style="background: rgba(255,255,255,1);"> 
+      <div id="homelogo" class="homelogo"> 
     
 
         
-          <div class="homelogoback"  style="border: 1px solid #404040;" >
-            <h1><a href="#content" id="logo">Chan</a></h1>
-            <h3></h3>
-            <h5>Chan</h5>
-            <!-- <p><a href="https://github.com/iTimeTraveler" target="_blank">Github</a></p> -->
-          </div>
+          
+
+          
         
     
     </div>
@@ -218,29 +215,32 @@
  <!-- home_logo_image居中 -->
  
     <script>
+        var img = new Image();
         var homelogodiv = document.getElementById("homelogo");
-        if (document.all.homelogo.offsetWidth > document.body.clientWidth) {
-          homelogodiv.style.width = document.body.clientWidth + "px";
-          homelogodiv.style.marginLeft = document.body.clientWidth * -0.5 + "px";
-        } else {
-          homelogodiv.style.width = homelogodiv.clientWidth  + "px";
-          homelogodiv.style.marginLeft = (homelogodiv.clientWidth)  * -0.5 + "px";
-        }
+        img.src = document.getElementById("homelogoimg").src;
+        img.onload=function(){
+          if (img.width > document.body.clientWidth) {
+            document.getElementById("homelogoimg").style.width = document.body.clientWidth + "px";
+            homelogodiv.style.marginLeft = document.body.clientWidth * -0.5 + "px";
+          } else {
+            homelogodiv.style.marginLeft = img.width * -0.5 + "px";
+          }
+        };
     </script>
   
 
   <div class="intro-navigate">
       <p class="navigater-list">
         
-          <a id="beautifont" class="main-nav-link" href="/">Startseite</a>
+          <a id="beautifont" class="main-nav-link" href="/">首页</a>
         
-          <a id="beautifont" class="main-nav-link" href="/archives">Archive</a>
+          <a id="beautifont" class="main-nav-link" href="/archives">归档</a>
         
-          <a id="beautifont" class="main-nav-link" href="/categories">Kategorien</a>
+          <a id="beautifont" class="main-nav-link" href="/categories">分类</a>
         
-          <a id="beautifont" class="main-nav-link" href="/tags">Tags</a>
+          <a id="beautifont" class="main-nav-link" href="/tags">标签</a>
         
-          <a id="beautifont" class="main-nav-link" href="/about">About</a>
+          <a id="beautifont" class="main-nav-link" href="/about">关于</a>
         
       </p>
   </div>
@@ -284,7 +284,7 @@
         <!-- Override equals()虽然Object是一个具体类，但它有一些非final的方法是被设计成override的，必要的时候，我们需要按照约定覆盖它们，适用于所有的类，本文介绍如何覆盖equals方法。
 什么时候需要覆盖equals方法？首先我们得先明白，未被覆盖的equals方法比较的是什么。未覆盖的equals方法比较的是两个对象是否引用同一块内存，如果是则返回true。往往我们......  -->
         <p class="article-more-link">
-          <a href="/2018/04/03/time- 2018-4-3/#more">weiter lesen</a>
+          <a href="/2018/04/03/time- 2018-4-3/#more">阅读全文</a>
         </p>
       
     </div>
@@ -331,7 +331,7 @@
         <!-- Reading 13:Abstraction Functions &amp; Rep Invariants关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。Reading 13:Abstraction Functions &amp; Rep Invariants
 Invariants一个好的抽象数据类型(以下简称ADT)，很重要的一点是，它要保护自己的不变性。注意，优秀ADT是自我保......  -->
         <p class="article-more-link">
-          <a href="/2018/03/23/MIT6.031 13/#more">weiter lesen</a>
+          <a href="/2018/03/23/MIT6.031 13/#more">阅读全文</a>
         </p>
       
     </div>
@@ -382,7 +382,7 @@ Introduction本文主要从不同的specs实例对比中，介绍如何设计spe
 
 确定性(deterministic)：规格是否定义明确？例如一个输入对应一个输......  -->
         <p class="article-more-link">
-          <a href="/2018/03/20/MIT6.031 07/#more">weiter lesen</a>
+          <a href="/2018/03/20/MIT6.031 07/#more">阅读全文</a>
         </p>
       
     </div>
@@ -432,7 +432,7 @@ Introduction本文主要从不同的specs实例对比中，介绍如何设计spe
 1. Maven？
 Maven主要服务于基于Java平台的项目构建，项目信息管理。通俗一点说，Maven不仅是一个构建工具，它是一个自动化的构建工具。在软件开发中，其实是有专人负责去构建的(构建是一个过程，包含编译，测试，打包，部署等)，但Mave......  -->
         <p class="article-more-link">
-          <a href="/2018/03/11/Maven/#more">weiter lesen</a>
+          <a href="/2018/03/11/Maven/#more">阅读全文</a>
         </p>
       
     </div>
@@ -468,8 +468,8 @@ Maven主要服务于基于Java平台的项目构建，项目信息管理。通�
 	      
 	      
     		<p class="busuanzi_uv">
-				UV : <span id="busuanzi_value_site_uv"></span> |  
-				PV : <span id="busuanzi_value_site_pv"></span>
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
 		    </p>
   		   
 		</div>
