@@ -234,6 +234,47 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-test"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2018/05/12/test/">test</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/05/12/test/" class="article-date">
+	  <time datetime="2018-05-12T12:39:53.952Z" itemprop="datePublished">2018-05-12</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIP</span><span class="params">(String Ip)</span> </span>&#123;</span><br><span class="line">		String[] IPaddress = Ip.split(<span class="string">"\\."</span>);</span><br><span class="line">		<span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(String s:IPaddress) &#123;</span><br><span class="line">			<span class="keyword">if</span>(Integer.parseInt(s)&gt;<span class="number">255</span> || Integer.parseInt(s)&lt;<span class="number">0</span>) &#123;</span><br><span class="line">				flag = <span class="keyword">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(IPaddress.length != <span class="number">4</span> || !flag ) &#123;</span><br><span class="line">			System.out.println(<span class="string">"nonlicet IPaddress"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">this</span>.IP = Ip;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-time- 2018-4-3"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
