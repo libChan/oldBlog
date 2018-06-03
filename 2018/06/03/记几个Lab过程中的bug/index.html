@@ -9,20 +9,20 @@
   
   
   
-  <meta name="description" content="写在前面Lab3-Lab5终于告一段落，持续了很久的实验，Lab3完成了程序的功能，Lab4补充功能并完成健壮性检查，Lab5主要进行I/O策略的优化，并分析程序运行情况。从实践学习Java的过程，会踩一些没有经验的坑，也是提升Java编程水平的过程。仅仅记录几个这个阶段的我学习过程中的bug，Java初学者，不正确的地方望指正。 1. 类内实例化自身具体怎么萌生这个神奇的想法我也无从考据了T_T">
+  <meta name="description" content="写在前面Lab3-Lab5终于告一段落，持续了很久的实验，Lab3完成了程序的功能，Lab4补充功能并完成健壮性检查，Lab5主要进行I/O策略的优化，并分析程序运行情况。从实践学习Java的过程，会踩一些没有经验的坑，也是提升Java编程水平的过程。仅仅记录几个这个阶段的我学习过程中的bug，Java初学者，不正确的地方望指正。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记几个Lab过程中的bug">
 <meta property="og:url" content="http://www.libchan.top/2018/06/03/记几个Lab过程中的bug/index.html">
 <meta property="og:site_name" content="Chan">
-<meta property="og:description" content="写在前面Lab3-Lab5终于告一段落，持续了很久的实验，Lab3完成了程序的功能，Lab4补充功能并完成健壮性检查，Lab5主要进行I/O策略的优化，并分析程序运行情况。从实践学习Java的过程，会踩一些没有经验的坑，也是提升Java编程水平的过程。仅仅记录几个这个阶段的我学习过程中的bug，Java初学者，不正确的地方望指正。 1. 类内实例化自身具体怎么萌生这个神奇的想法我也无从考据了T_T">
+<meta property="og:description" content="写在前面Lab3-Lab5终于告一段落，持续了很久的实验，Lab3完成了程序的功能，Lab4补充功能并完成健壮性检查，Lab5主要进行I/O策略的优化，并分析程序运行情况。从实践学习Java的过程，会踩一些没有经验的坑，也是提升Java编程水平的过程。仅仅记录几个这个阶段的我学习过程中的bug，Java初学者，不正确的地方望指正。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="c:/Users/单心茹/AppData/Local/Temp/1528032852285.png">
-<meta property="og:image" content="c:/Users/单心茹/AppData/Local/Temp/1528033680828.png">
-<meta property="og:updated_time" content="2018-06-03T14:00:53.474Z">
+<meta property="og:image" content="https://i.imgur.com/LVyOvOQ.jpg">
+<meta property="og:image" content="https://i.imgur.com/tsdoMHz.jpg">
+<meta property="og:updated_time" content="2018-06-03T14:12:56.822Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记几个Lab过程中的bug">
-<meta name="twitter:description" content="写在前面Lab3-Lab5终于告一段落，持续了很久的实验，Lab3完成了程序的功能，Lab4补充功能并完成健壮性检查，Lab5主要进行I/O策略的优化，并分析程序运行情况。从实践学习Java的过程，会踩一些没有经验的坑，也是提升Java编程水平的过程。仅仅记录几个这个阶段的我学习过程中的bug，Java初学者，不正确的地方望指正。 1. 类内实例化自身具体怎么萌生这个神奇的想法我也无从考据了T_T">
-<meta name="twitter:image" content="c:/Users/单心茹/AppData/Local/Temp/1528032852285.png">
+<meta name="twitter:description" content="写在前面Lab3-Lab5终于告一段落，持续了很久的实验，Lab3完成了程序的功能，Lab4补充功能并完成健壮性检查，Lab5主要进行I/O策略的优化，并分析程序运行情况。从实践学习Java的过程，会踩一些没有经验的坑，也是提升Java编程水平的过程。仅仅记录几个这个阶段的我学习过程中的bug，Java初学者，不正确的地方望指正。">
+<meta name="twitter:image" content="https://i.imgur.com/LVyOvOQ.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Chan" type="application/atom+xml">
   
@@ -191,7 +191,7 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>Lab3-Lab5终于告一段落，持续了很久的实验，Lab3完成了程序的功能，Lab4补充功能并完成健壮性检查，Lab5主要进行I/O策略的优化，并分析程序运行情况。从实践学习Java的过程，会踩一些没有经验的坑，也是提升Java编程水平的过程。仅仅记录几个这个阶段的我学习过程中的bug，Java初学者，不正确的地方望指正。</p>
+        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>Lab3-Lab5终于告一段落，持续了很久的实验，Lab3完成了程序的功能，Lab4补充功能并完成健壮性检查，Lab5主要进行I/O策略的优化，并分析程序运行情况。从实践学习Java的过程，会踩一些没有经验的坑，也是提升Java编程水平的过程。仅仅记录几个这个阶段的我学习过程中的bug，Java初学者，不正确的地方望指正。<br><a id="more"></a></p>
 <h2 id="1-类内实例化自身"><a href="#1-类内实例化自身" class="headerlink" title="1. 类内实例化自身"></a>1. 类内实例化自身</h2><p>具体怎么萌生这个神奇的想法我也无从考据了T_T……我只知道后来一直在为自己曾经的脑洞买单T_T</p>
 <p>看一看这个bug：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GraphPoet</span> <span class="keyword">extends</span> <span class="title">ConcreteGraph</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> GraphPoet graph = <span class="keyword">new</span> GraphPoet();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -212,17 +212,17 @@
 <p>Junit 4.11里增加了指定测试方法执行顺序的特性 </p>
 <p>测试类的执行顺序可通过对测试类添加注解 “@FixMethodOrder(value)” 来指定,其中value 为执行顺序 </p>
 <p>三种执行顺序：默认<code>MethodSorters.DEFAULT</code>，按方法名<code>MethodSorters.NAME_ASCENDING</code>，按JVM返回的顺序<code>MethodSorters.JVM</code>.</p>
-<ol>
-<li>当没有指定任何顺序时，按默认来执行 ，多次执行发现打印顺序不一样，下面是测试情况：</li>
-</ol>
-<p><img src="C:\Users\单心茹\AppData\Local\Temp\1528032852285.png" alt="1528032852285"></p>
-<ol>
+<ul>
+<li>*当没有指定任何顺序时，按默认来执行 ，多次执行发现打印顺序不一样，下面是测试情况：</li>
+</ul>
+<p><img src="https://i.imgur.com/LVyOvOQ.jpg" alt=""></p>
+<ul>
 <li>按方法名升序执行，可以按照指定顺序执行：</li>
-</ol>
-<p><img src="C:\Users\单心茹\AppData\Local\Temp\1528033680828.png" alt="1528033680828"></p>
-<ol>
+</ul>
+<p><img src="https://i.imgur.com/tsdoMHz.jpg" alt=""></p>
+<ul>
 <li>按照JVM的返回顺序，顺序可能会不同。</li>
-</ol>
+</ul>
 <p>以上，1/bugs，希望成为垫脚石T_T</p>
 
       
