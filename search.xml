@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[test]]></title>
-    <url>%2F2018%2F05%2F12%2Ftest%2F</url>
-    <content type="text"><![CDATA[12345678910111213public void setIP(String Ip) &#123; String[] IPaddress = Ip.split("\\."); boolean flag = true; for(String s:IPaddress) &#123; if(Integer.parseInt(s)&gt;255 || Integer.parseInt(s)&lt;0) &#123; flag = false; &#125; &#125; if(IPaddress.length != 4 || !flag ) &#123; System.out.println("nonlicet IPaddress"); &#125; this.IP = Ip; &#125;]]></content>
+    <title><![CDATA[记几个Lab过程中的bug]]></title>
+    <url>%2F2018%2F06%2F03%2F%E8%AE%B0%E5%87%A0%E4%B8%AALab%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84bug%2F</url>
+    <content type="text"><![CDATA[写在前面Lab3-Lab5终于告一段落，持续了很久的实验，Lab3完成了程序的功能，Lab4补充功能并完成健壮性检查，Lab5主要进行I/O策略的优化，并分析程序运行情况。从实践学习Java的过程，会踩一些没有经验的坑，也是提升Java编程水平的过程。仅仅记录几个这个阶段的我学习过程中的bug，Java初学者，不正确的地方望指正。 1. 类内实例化自身具体怎么萌生这个神奇的想法我也无从考据了T_T……我只知道后来一直在为自己曾经的脑洞买单T_T 看一看这个bug： 123public class GraphPoet extends ConcreteGraph &#123; private GraphPoet graph = new GraphPoet();&#125; 这么搞的下场是Stack overflow，冷静分析一下，当一个类存储在栈上，相应的存储他的成员，但存储成员时，又实例化了一个新的“自己”，如此反复，栈空间耗尽，车祸现场。 debug！ 123public class GraphPoet extends ConcreteGraph &#123; private static GraphPoet graph = new GraphPoet();&#125; 对于当时的实验情况，加上关键字static就解决了栈溢出的问题，static是全局变量，当声明一个对象时，并不产生static变量的拷贝，而是该类所有的实例共用同一个static变量。所以在类的初始化时就创建了graph，实例化时则不再重复创建。 上述写法其实是不成熟的，当时对概念不够理解。后来发现对“静态变量“的使用是有所考究的，以下场景可以考虑使用静态变量： 变量所包含的对象体积较大，占用内存较多。 变量所包含的对象生命周期较长。 变量所包含的对象数据稳定。 该类的对象实例有对该变量所包含的对象的共享需求。 2.单例模式为什么说之前的代码是不成熟的，创建了一个static全局变量，全局变量可以直接通过类名调用，然而我却加上了private，Lab5思考到这个问题后，发现单例模式可以很好的应用在我的程序，满足需求，节省程序空间。 12345678public class GraphPoet extends ConcreteGraph &#123; private static final GraphPoet graph = new GraphPoet(); private GraphPoet() &#123;&#125; public static GraphPoet getInstance() &#123; return graph; &#125; 3.Junit的测试顺序Junit的测试函数的执行顺序是不确定的，符合单元测试的思想。 Junit 4.11里增加了指定测试方法执行顺序的特性 测试类的执行顺序可通过对测试类添加注解 “@FixMethodOrder(value)” 来指定,其中value 为执行顺序 三种执行顺序：默认MethodSorters.DEFAULT，按方法名MethodSorters.NAME_ASCENDING，按JVM返回的顺序MethodSorters.JVM. 当没有指定任何顺序时，按默认来执行 ，多次执行发现打印顺序不一样，下面是测试情况： 按方法名升序执行，可以按照指定顺序执行： 按照JVM的返回顺序，顺序可能会不同。 以上，1/bugs，希望成为垫脚石T_T]]></content>
   </entry>
   <entry>
     <title><![CDATA[重写equals方法]]></title>

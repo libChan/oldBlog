@@ -3,19 +3,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Chan</title>
+  <title>记几个lab过程中的bug | Chan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
   
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Chan">
-<meta property="og:url" content="http://www.libchan.top/index.html">
+  <meta name="description" content="写在前面Lab3-Lab5终于告一段落，持续了很久的实验，Lab3完成了程序的功能，Lab4补充功能并完成健壮性检查，Lab5主要进行I/O策略的优化，并分析程序运行情况。从实践学习Java的过程，会踩一些没有经验的坑，也是提升Java编程水平的过程。仅仅记录几个这个阶段的我学习过程中的bug，Java初学者，不正确的地方望指正。 1. 类内实例化自身具体怎么萌生这个神奇的想法我也无从考据了T_T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记几个Lab过程中的bug">
+<meta property="og:url" content="http://www.libchan.top/2018/06/03/记几个Lab过程中的bug/index.html">
 <meta property="og:site_name" content="Chan">
+<meta property="og:description" content="写在前面Lab3-Lab5终于告一段落，持续了很久的实验，Lab3完成了程序的功能，Lab4补充功能并完成健壮性检查，Lab5主要进行I/O策略的优化，并分析程序运行情况。从实践学习Java的过程，会踩一些没有经验的坑，也是提升Java编程水平的过程。仅仅记录几个这个阶段的我学习过程中的bug，Java初学者，不正确的地方望指正。 1. 类内实例化自身具体怎么萌生这个神奇的想法我也无从考据了T_T">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="c:/Users/单心茹/AppData/Local/Temp/1528032852285.png">
+<meta property="og:image" content="c:/Users/单心茹/AppData/Local/Temp/1528033680828.png">
+<meta property="og:updated_time" content="2018-06-03T14:00:53.474Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chan">
+<meta name="twitter:title" content="记几个Lab过程中的bug">
+<meta name="twitter:description" content="写在前面Lab3-Lab5终于告一段落，持续了很久的实验，Lab3完成了程序的功能，Lab4补充功能并完成健壮性检查，Lab5主要进行I/O策略的优化，并分析程序运行情况。从实践学习Java的过程，会踩一些没有经验的坑，也是提升Java编程水平的过程。仅仅记录几个这个阶段的我学习过程中的bug，Java初学者，不正确的地方望指正。 1. 类内实例化自身具体怎么萌生这个神奇的想法我也无从考据了T_T">
+<meta name="twitter:image" content="c:/Users/单心茹/AppData/Local/Temp/1528032852285.png">
   
     <link rel="alternate" href="/atom.xml" title="Chan" type="application/atom+xml">
   
@@ -44,11 +51,13 @@
   <link rel="stylesheet" href="/css/bootstrap.css" >
 
   
-    <link rel="stylesheet" href="/css/home.css" >
+    <link rel="stylesheet" href="/css/dialog.css">
   
 
   
 
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
   
 
   
@@ -59,190 +68,107 @@
 
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
-  
-    <header id="header">
-
-	<!-- 背景图模式 -->
-	
-
-    
-      <div id="intrologo" class="intro-logo" style="background-position:center; background-repeat:no-repeat; background-image: url(); background-size: auto 100%;">
-
-      <!-- Support rolling -->  
-        
-        <section class="awSlider">
-          <div class="carousel slide carousel-fade " data-ride="carousel">
-
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner">
-               
-                  
-                    <div class="item active">
-                  
-                    <img id="carousel-img0" src="/css/images/home-bg.jpg">
-                  </div>
-
-                  <!-- 自适应大图 -->
-                  <script>
-                      var img0 = new Image();
-                      var imageTag0 = document.getElementById("carousel-img0");
-                      img0.src = imageTag0.src;
-                      img0.onload=function(){
-                        if (img0.width / img0.height <= document.body.clientWidth / document.body.clientHeight) {
-                          imageTag0.style.width = document.body.clientWidth + "px";
-                        } else {
-                          imageTag0.style.height = document.body.clientHeight + "px";
-                          imageTag0.style.marginLeft = -(document.body.clientHeight * img0.width / img0.height - document.body.clientWidth) / 2 + "px";
-                        }
-                      };
-                  </script>
-                
-                  
-                    <div class="item">
-                  
-                    <img id="carousel-img1" src="/css/images/sample.jpg">
-                  </div>
-
-                  <!-- 自适应大图 -->
-                  <script>
-                      var img1 = new Image();
-                      var imageTag1 = document.getElementById("carousel-img1");
-                      img1.src = imageTag1.src;
-                      img1.onload=function(){
-                        if (img1.width / img1.height <= document.body.clientWidth / document.body.clientHeight) {
-                          imageTag1.style.width = document.body.clientWidth + "px";
-                        } else {
-                          imageTag1.style.height = document.body.clientHeight + "px";
-                          imageTag1.style.marginLeft = -(document.body.clientHeight * img1.width / img1.height - document.body.clientWidth) / 2 + "px";
-                        }
-                      };
-                  </script>
-                
-            </div>
-
-            <!-- Controls -->
-            <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-              <span class="sr-only">Geri</span>
-            </a>
-            <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
-              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              <span class="sr-only">İleri</span>
-            </a>
-          </div>
-        </section>
-        <script>
-          $('section.awSlider .carousel').carousel({
-              pause: '',
-              interval: 5000
-          });
-          var startImage = $('section.awSlider .item.active > img').attr('src');
-          $('section.awSlider .carousel').on('slid.bs.carousel', function () {
-              var bscn = $(this).find('.item.active > img').attr('src');
-              $('section.awSlider > img').attr('src', bscn);
-          });
-        </script>
-      
-
-    
- 
-
-
-    <canvas width="100%" height="100%"></canvas>
-    <script>
-      var c = document.getElementsByTagName('canvas')[0],
-          x = c.getContext('2d'),
-          w = window.innerWidth,
-          h = window.innerHeight,
-          pr = window.devicePixelRatio || 1,
-          f = 90,
-          q,
-          m = Math,
-          r = 0,
-          u = m.PI*2,
-          v = m.cos,
-          z = m.random
-      c.width = w*pr
-      c.height = h*pr
-      x.scale(pr, pr)
-      x.globalAlpha = 0.6
-
-      <!-- 折线Polyline背景 -->
-      
-    </script>
-    
-
-    
-      <div id="homelogo" class="homelogo"> 
-    
-
-        
-          
-
-          
-        
-    
-    </div>
-  </div>
-
-  <!-- 自适应主页背景大图 -->
-  
-
- <!-- home_logo_image居中 -->
- 
-    <script>
-        var img = new Image();
-        var homelogodiv = document.getElementById("homelogo");
-        img.src = document.getElementById("homelogoimg").src;
-        img.onload=function(){
-          if (img.width > document.body.clientWidth) {
-            document.getElementById("homelogoimg").style.width = document.body.clientWidth + "px";
-            homelogodiv.style.marginLeft = document.body.clientWidth * -0.5 + "px";
-          } else {
-            homelogodiv.style.marginLeft = img.width * -0.5 + "px";
-          }
-        };
-    </script>
-  
-
-  <div class="intro-navigate">
-      <p class="navigater-list">
-        
-          <a id="beautifont" class="main-nav-link" href="/">首页</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/archives">归档</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/categories">分类</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/tags">标签</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/about">关于</a>
-        
-      </p>
-  </div>
-
-</header>
   
   <div id="container">
     <div id="wrap">
       
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/avatar.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;">
-  
-    <article id="post-记几个Lab过程中的bug"  class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-记几个Lab过程中的bug" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
       <header class="article-header">
         
   
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/06/03/记几个Lab过程中的bug/">记几个Lab过程中的bug</a>
+    <h1 class="thumb" class="article-title" itemprop="name">
+      记几个Lab过程中的bug
     </h1>
   
 
@@ -256,6 +182,12 @@
 
       
       
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -298,217 +230,62 @@
     <footer class="article-footer">
       
       
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-time- 2018-4-3"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
         
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/04/03/time- 2018-4-3/">重写equals方法</a>
-    </h1>
-  
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
 
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2018/04/03/time- 2018-4-3/" class="article-date">
-	  <time datetime="2018-04-03T13:30:29.534Z" itemprop="datePublished">2018-04-03</time>
-	</a>
+		       if (typeof LivereTower === 'function') { return; }
 
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Override-equals"><a href="#Override-equals" class="headerlink" title="Override equals()"></a>Override equals()</h1><p>虽然Object是一个具体类，但它有一些非final的方法是被设计成override的，必要的时候，我们需要<strong>按照约定</strong>覆盖它们，适用于所有的类，本文介绍如何覆盖equals方法。<br>
-        <!-- Override equals()虽然Object是一个具体类，但它有一些非final的方法是被设计成override的，必要的时候，我们需要按照约定覆盖它们，适用于所有的类，本文介绍如何覆盖equals方法。
-什么时候需要覆盖equals方法？首先我们得先明白，未被覆盖的equals方法比较的是什么。未覆盖的equals方法比较的是两个对象是否引用同一块内存，如果是则返回true。往往我们......  -->
-        <p class="article-more-link">
-          <a href="/2018/04/03/time- 2018-4-3/#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
       
       
     </footer>
   </div>
   
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-MIT6.031 13"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
     
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/03/23/MIT6.031 13/">MIT-6.031-13</a>
-    </h1>
   
+    <a href="/2018/04/03/time- 2018-4-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">重写equals方法</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2018/03/23/MIT6.031 13/" class="article-date">
-	  <time datetime="2018-03-23T03:45:24.397Z" itemprop="datePublished">2018-03-23</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/MIT/">MIT</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Reading-13-Abstraction-Functions-amp-Rep-Invariants"><a href="#Reading-13-Abstraction-Functions-amp-Rep-Invariants" class="headerlink" title="Reading 13:Abstraction Functions &amp; Rep Invariants"></a>Reading 13:Abstraction Functions &amp; Rep Invariants</h1><p>关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。<br><a href="http://web.mit.edu/6.031/www/sp17/classes/13-abstraction-functions-rep-invariants/#reading_13_abstraction_functions_rep_invariants" target="_blank" rel="noopener">Reading 13:Abstraction Functions &amp; Rep Invariants</a><br>
-        <!-- Reading 13:Abstraction Functions &amp; Rep Invariants关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。Reading 13:Abstraction Functions &amp; Rep Invariants
-Invariants一个好的抽象数据类型(以下简称ADT)，很重要的一点是，它要保护自己的不变性。注意，优秀ADT是自我保......  -->
-        <p class="article-more-link">
-          <a href="/2018/03/23/MIT6.031 13/#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MIT讲义/">MIT讲义</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
 <!-- Table of Contents -->
 
-  
-    <article id="post-MIT6.031 07"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
     
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-类内实例化自身"><span class="nav-number"></span> <span class="nav-text">1. 类内实例化自身</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-单例模式"><span class="nav-number"></span> <span class="nav-text">2.单例模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Junit的测试顺序"><span class="nav-number"></span> <span class="nav-text">3.Junit的测试顺序</span></a>
     
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/03/20/MIT6.031 07/">MIT-6.031-07</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2018/03/20/MIT6.031 07/" class="article-date">
-	  <time datetime="2018-03-20T09:33:10.888Z" itemprop="datePublished">2018-03-20</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/MIT/">MIT</a>
-
-      
     </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Reading-7-Designing-Specifications"><a href="#Reading-7-Designing-Specifications" class="headerlink" title="Reading 7:Designing Specifications"></a>Reading 7:Designing Specifications</h1><p>关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。<br><a href="http://web.mit.edu/6.031/www/sp17/classes/07-designing-specs/" target="_blank" rel="noopener">MIT-6.031-07 Reading 7 : Designing Specifications</a><br>
-        <!-- Reading 7:Designing Specifications关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。MIT-6.031-07 Reading 7 : Designing Specifications
-Introduction本文主要从不同的specs实例对比中，介绍如何设计specs。
-
-确定性(deterministic)：规格是否定义明确？例如一个输入对应一个输......  -->
-        <p class="article-more-link">
-          <a href="/2018/03/20/MIT6.031 07/#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MIT讲义/">MIT讲义</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Maven"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/03/11/Maven/">Maven初步学习</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2018/03/11/Maven/" class="article-date">
-	  <time datetime="2018-03-11T09:57:42.384Z" itemprop="datePublished">2018-03-11</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/Tool/">Tool</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>初次了解软件构造和maven，仅记录学习maven的过程。<br>本文不包含Maven的安装，环境配置，项目创建等内容，主要记录Maven的特点和概念。<br>
-        <!-- 初次了解软件构造和maven，仅记录学习maven的过程。本文不包含Maven的安装，环境配置，项目创建等内容，主要记录Maven的特点和概念。
-1. Maven？
-Maven主要服务于基于Java平台的项目构建，项目信息管理。通俗一点说，Maven不仅是一个构建工具，它是一个自动化的构建工具。在软件开发中，其实是有专人负责去构建的(构建是一个过程，包含编译，测试，打包，部署等)，但Mave......  -->
-        <p class="article-more-link">
-          <a href="/2018/03/11/Maven/#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maven/">Maven</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-
-
+  </aside>
 </section>
         
       </div>
-      
-        <div align="center" style="margin-top: 30px;"><hr class="hr" style="margin:0px; height:3px;"></div>
       
       <footer id="footer">
   
@@ -600,9 +377,9 @@ Maven主要服务于基于Java平台的项目构建，项目信息管理。通�
 <script src="/js/scripts.js"></script>
 
 
-  <script src="/js/home.js"></script>
 
 
+  <script src="/js/dialog.js"></script>
 
 
 
@@ -687,6 +464,8 @@ Maven主要服务于基于Java平台的项目构建，项目信息管理。通�
   
   <a id="rocket" href="#top" class=""></a>
   <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
   
 </body>
 </html>
