@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[浅谈Java中的Dispatch(分派)和Binding(绑定)]]></title>
+    <url>%2F2018%2F06%2F18%2F%E6%B5%85%E8%B0%88Java%E4%B8%AD%E7%9A%84Dispatch(%E5%88%86%E6%B4%BE)%E5%92%8CBinding(%E7%BB%91%E5%AE%9A)%2F</url>
+    <content type="text"><![CDATA[Java中，绑定是指将方法名和具体方法绑定的过程。 而分派是在运行阶段，对已经绑定好的方法实行分配，决定该调用哪个方法。 Binding：绑定绑定可以分为前期绑定和后期绑定 前期/静态绑定 Java中的static，final，private的方法属于前期绑定。需要注意的是，Overload是静态绑定的。静态绑定在编译阶段完成。 后期/动态绑定 对Override的方法进行绑定，在运行时根据具体对象的类型进行绑定。 编译阶段，编译器还不知道对象的具体类型（例如不知道该对象调用子类的方法还是父类的方法）。 以父类型与子类型的转换为例，动态绑定大致过程如下： 编译器列出对象可能的所有方法表（父类+子类等） 运行时，匹配方法。 Dispatch：分派先绑定，后分派。分派决定在执行阶段执行哪一段代码。 静态分派： 若绑定是确定的，一一对应，那么执行静态分派，在编译阶段即可执行。 动态分派： 方法绑定了多段代码，在运行阶段根据具体类型的对象决定执行哪段代码， 在运行阶段执行。 Overload：提前绑定+动态分配 Override：延迟绑定+动态分配 所以动态分配不一定是延迟绑定，但延迟绑定一定意味着动态分配。]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[记几个Lab过程中的bug]]></title>
     <url>%2F2018%2F06%2F03%2F%E8%AE%B0%E5%87%A0%E4%B8%AALab%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84bug%2F</url>
     <content type="text"><![CDATA[写在前面Lab3-Lab5终于告一段落，持续了很久的实验，Lab3完成了程序的功能，Lab4补充功能并完成健壮性检查，Lab5主要进行I/O策略的优化，并分析程序运行情况。从实践学习Java的过程，会踩一些没有经验的坑，也是提升Java编程水平的过程。仅仅记录几个这个阶段的我学习过程中的bug，Java初学者，不正确的地方望指正。 1. 类内实例化自身具体怎么萌生这个神奇的想法我也无从考据了T_T……我只知道后来一直在为自己曾经的脑洞买单T_T 看一看这个bug： 123public class GraphPoet extends ConcreteGraph &#123; private GraphPoet graph = new GraphPoet();&#125; 这么搞的下场是Stack overflow，冷静分析一下，当一个类存储在栈上，相应的存储他的成员，但存储成员时，又实例化了一个新的“自己”，如此反复，栈空间耗尽，车祸现场。 debug！ 123public class GraphPoet extends ConcreteGraph &#123; private static GraphPoet graph = new GraphPoet();&#125; 对于当时的实验情况，加上关键字static就解决了栈溢出的问题，static是全局变量，当声明一个对象时，并不产生static变量的拷贝，而是该类所有的实例共用同一个static变量。所以在类的初始化时就创建了graph，实例化时则不再重复创建。 上述写法其实是不成熟的，当时对概念不够理解。后来发现对“静态变量“的使用是有所考究的，以下场景可以考虑使用静态变量： 变量所包含的对象体积较大，占用内存较多。 变量所包含的对象生命周期较长。 变量所包含的对象数据稳定。 该类的对象实例有对该变量所包含的对象的共享需求。 2.单例模式为什么说之前的代码是不成熟的，创建了一个static全局变量，全局变量可以直接通过类名调用，然而我却加上了private，Lab5思考到这个问题后，发现单例模式可以很好的应用在我的程序，满足需求，节省程序空间。 12345678public class GraphPoet extends ConcreteGraph &#123; private static final GraphPoet graph = new GraphPoet(); private GraphPoet() &#123;&#125; public static GraphPoet getInstance() &#123; return graph; &#125; 3.Junit的测试顺序Junit的测试函数的执行顺序是不确定的，符合单元测试的思想。 Junit 4.11里增加了指定测试方法执行顺序的特性 测试类的执行顺序可通过对测试类添加注解 “@FixMethodOrder(value)” 来指定,其中value 为执行顺序 三种执行顺序：默认MethodSorters.DEFAULT，按方法名MethodSorters.NAME_ASCENDING，按JVM返回的顺序MethodSorters.JVM. *当没有指定任何顺序时，按默认来执行 ，多次执行发现打印顺序不一样，下面是测试情况： 按方法名升序执行，可以按照指定顺序执行： 按照JVM的返回顺序，顺序可能会不同。 以上，1/bugs，希望成为垫脚石T_T]]></content>

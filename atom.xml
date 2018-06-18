@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.libchan.top/"/>
-  <updated>2018-06-03T14:12:56.822Z</updated>
+  <updated>2018-06-18T05:51:14.962Z</updated>
   <id>http://www.libchan.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>浅谈Java中的Dispatch(分派)和Binding(绑定)</title>
+    <link href="http://www.libchan.top/2018/06/18/%E6%B5%85%E8%B0%88Java%E4%B8%AD%E7%9A%84Dispatch(%E5%88%86%E6%B4%BE)%E5%92%8CBinding(%E7%BB%91%E5%AE%9A)/"/>
+    <id>http://www.libchan.top/2018/06/18/浅谈Java中的Dispatch(分派)和Binding(绑定)/</id>
+    <published>2018-06-18T05:49:44.308Z</published>
+    <updated>2018-06-18T05:51:14.962Z</updated>
+    
+    <content type="html"><![CDATA[<p>Java中，绑定是指将方法名和具体方法绑定的过程。</p><p>而分派是在运行阶段，对已经绑定好的方法实行分配，决定该调用哪个方法。</p><a id="more"></a><h2 id="Binding：绑定"><a href="#Binding：绑定" class="headerlink" title="Binding：绑定"></a>Binding：绑定</h2><p>绑定可以分为<strong>前期绑定</strong>和<strong>后期绑定</strong></p><ol><li><p>前期/静态绑定</p><p>Java中的static，final，private的方法属于前期绑定。需要注意的是，Overload是静态绑定的。静态绑定在编译阶段完成。</p></li><li><p>后期/动态绑定</p><p>对Override的方法进行绑定，在运行时根据具体对象的类型进行绑定。</p><p>编译阶段，编译器还不知道对象的具体类型（例如不知道该对象调用子类的方法还是父类的方法）。</p><p>以父类型与子类型的转换为例，动态绑定大致过程如下：</p><ul><li>编译器列出对象可能的所有方法表（父类+子类等）</li><li>运行时，匹配方法。</li></ul></li></ol><h2 id="Dispatch：分派"><a href="#Dispatch：分派" class="headerlink" title="Dispatch：分派"></a>Dispatch：分派</h2><p>先绑定，后分派。分派决定在执行阶段执行哪一段代码。</p><ol><li><p>静态分派：</p><p>若绑定是确定的，一一对应，那么执行静态分派，在编译阶段即可执行。</p></li><li><p>动态分派：</p><p>方法绑定了多段代码，在运行阶段根据具体类型的对象决定执行哪段代码，</p><p>在运行阶段执行。</p></li></ol><p>Overload：提前绑定+动态分配</p><p>Override：延迟绑定+动态分配</p><p>所以<strong>动态分配不一定是延迟绑定，但延迟绑定一定意味着动态分配</strong>。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Java中，绑定是指将方法名和具体方法绑定的过程。&lt;/p&gt;
+&lt;p&gt;而分派是在运行阶段，对已经绑定好的方法实行分配，决定该调用哪个方法。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://www.libchan.top/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://www.libchan.top/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>记几个Lab过程中的bug</title>
