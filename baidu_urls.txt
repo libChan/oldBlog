@@ -1,3 +1,4 @@
+http://www.libchan.top/2018/06/21/面向可维护性的设计模式/
 http://www.libchan.top/2018/06/19/5个SOLID设计原则和GRASP/
 http://www.libchan.top/2018/06/19/面向复用的设计模式/
 http://www.libchan.top/2018/06/18/浅谈Java中的Dispatch(分派)和Binding(绑定)/
