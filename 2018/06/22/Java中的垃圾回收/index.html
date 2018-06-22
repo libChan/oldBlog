@@ -3,19 +3,32 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档: 2018/4 | Chan</title>
+  <title>java中的垃圾回收 | Chan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="Java" />
   
   
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Chan">
-<meta property="og:url" content="http://www.libchan.top/archives/2018/04/index.html">
+  
+  <meta name="description" content="Java GC将heap分成不同区域，不同区域采用不同的GC策略">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java中的垃圾回收">
+<meta property="og:url" content="http://www.libchan.top/2018/06/22/Java中的垃圾回收/index.html">
 <meta property="og:site_name" content="Chan">
+<meta property="og:description" content="Java GC将heap分成不同区域，不同区域采用不同的GC策略">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/2iVNjeI.jpg">
+<meta property="og:image" content="https://i.imgur.com/YFdaADJ.jpg">
+<meta property="og:image" content="https://i.imgur.com/pvFalAK.jpg">
+<meta property="og:image" content="https://i.imgur.com/22FCRjx.jpg">
+<meta property="og:image" content="https://i.imgur.com/pridxQr.jpg">
+<meta property="og:updated_time" content="2018-06-22T07:50:17.115Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chan">
+<meta name="twitter:title" content="Java中的垃圾回收">
+<meta name="twitter:description" content="Java GC将heap分成不同区域，不同区域采用不同的GC策略">
+<meta name="twitter:image" content="https://i.imgur.com/2iVNjeI.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Chan" type="application/atom+xml">
   
@@ -54,8 +67,6 @@
   
 
   
-    <link rel="stylesheet" href="/css/archive.css" >
-  
   
   
 
@@ -63,7 +74,7 @@
 
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
   
@@ -86,7 +97,7 @@
             
               <a class="brand" style="
                  margin-top: 0px;"  
-                 >
+                href="#" data-toggle="modal" data-target="#myModal" >
                   <img width="124px" height="124px" alt="Hike News" src="/css/images/avatar.jpg">
               </a>
             
@@ -155,134 +166,119 @@
             
       <div id="content" class="outer">
         
-          <section id="main">
-  <div class="archives-tags-wrap"><blockquote><span>嗯，目前共计10篇文章</span></blockquote>
-
-
-<!-- 分页显示 -->
-
-	
-	
-		
-		
-		  
-		  
-		  <section class="archives-wrap">
-		    <div class="archive-year-wrap">
-		      <h1><a href="/archives/2018" class="archive-year">2018</a></h1>
-		    </div>
-		    <div class="archives">
-		
-		<article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-	<a href="/2018/04/03/time- 2018-4-3/" class="archive-article-date">
-	  <time datetime="2018-04-03T13:30:29.534Z" itemprop="datePublished">2018-04-03</time>
-	</a>
-
-      
+          <section id="main" style="float:none;"><article id="post-Java中的垃圾回收" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/2018/04/03/time- 2018-4-3/">重写equals方法</a>
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Java中的垃圾回收
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/06/22/Java中的垃圾回收/" class="article-date">
+	  <time datetime="2018-06-22T07:49:27.820Z" itemprop="datePublished">2018-06-22</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Java GC将heap分成不同区域，不同区域采用不同的GC策略<br><a id="more"></a></p>
+<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><h3 id="Java-内存划分："><a href="#Java-内存划分：" class="headerlink" title="Java 内存划分："></a>Java 内存划分：</h3><p><img src="https://i.imgur.com/2iVNjeI.jpg" alt=""></p>
+<ul>
+<li>Young Generation：只有一小部分对象可较长时间存活，故采用<strong>copy算法</strong>减少GC代价</li>
+<li>Old Generation：使用Mark-Sweep或Mark-Compact算法</li>
+</ul>
+<h3 id="Minor-GC"><a href="#Minor-GC" class="headerlink" title="Minor GC"></a>Minor GC</h3><p>只有当Eden满的时候，才启动Minor GC<br><img src="https://i.imgur.com/YFdaADJ.jpg" alt=""></p>
+<p>被引用的对象被复制到S0或S1，否则被垃圾回收掉：</p>
+<p><img src="https://i.imgur.com/pvFalAK.jpg" alt=""><br>下一次垃圾回收：<br><img src="https://i.imgur.com/22FCRjx.jpg" alt=""><br>S0和S1始终至少有一个为空，下次GC时，Eden复制存活对象到空的区域，非空存活区也进行GC。<br>经历多次Minor GC存活的，被复制到Full GC</p>
+<h3 id="Full-GC"><a href="#Full-GC" class="headerlink" title="Full GC"></a>Full GC</h3><p>如果old generation满了，则启动full GC（MarkSweap-MarkCompact）<br> 当perm generation满了之后，无法存储更多的元数据，也启动full GC</p>
+<p>堆尺寸参数：<br><img src="https://i.imgur.com/pridxQr.jpg" alt=""></p>
+<p>参数设置：<br>Eden+存活区 ： 年老区 = 1：n<br>每个存活区：Eden = 1：n<br>old generation的尺寸不需要设置，根据其他各参数的取值可计算得到</p>
+<h2 id="性能调优工具"><a href="#性能调优工具" class="headerlink" title="性能调优工具"></a>性能调优工具</h2><ul>
+<li>jstat：获取JVM的heap使用和GC的性能统计数据</li>
+<li>jmap：输出内存中的对象分布情况</li>
+<li>jhat：导出heap dump，浏览/查询其中的对象分布情况</li>
+<li>jstack：获取Java线程的stack trace</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/21/面向可维护性的设计模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">面向可维护性的设计模式</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-	
-	
-		</div></section>
-	
 
-	<!-- 页数指示器 -->
-	
+<!-- Table of Contents -->
 
-
-
-
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾回收"><span class="nav-number">1.</span> <span class="nav-text">垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-内存划分："><span class="nav-number">1.1.</span> <span class="nav-text">Java 内存划分：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Minor-GC"><span class="nav-number">1.2.</span> <span class="nav-text">Minor GC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Full-GC"><span class="nav-number">1.3.</span> <span class="nav-text">Full GC</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能调优工具"><span class="nav-number">2.</span> <span class="nav-text">性能调优工具</span></a></li></ol>
+    
+    </div>
+  </aside>
 </section>
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">关注我</h3>
-    <div class="widget widget_athemes_social_icons">
-
-    	<ul class="clearfix widget-social-icons">   
-    	
-          
-     			  <li><a href="https://github.com/libChan" title="Github"><i class="fa fa-github" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://www.zhihu.com/people/dan-xin-ru/activities" title="Zhihu"><i class="fa fa-zhihu" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-            <li><a href="mailto:sxr19980217@163.com?subject=请联系我&body=我能帮你什么" title="email"><i class="fa fa-envelope" aria-hidden="true"></i></a></li> 
-          
-   		
-   		</ul>
-
-
-   		<!--
-   		<ul class="clearfix widget-social-icons">   		
-   		<li class="widget-si-twitter"><a href="http://twitter.com" title="Twitter"><i class="ico-twitter"></i></a></li> 
-		<li class="widget-si-facebook"><a href="http://facebook.com" title="Facebook"><i class="ico-facebook"></i></a></li>
-			<li class="widget-si-gplus"><a href="http://plus.google.com" title="Google+"><i class="ico-gplus"></i></a></li>
-			<li class="widget-si-pinterest"><a href="http://pinterest.com" title="Pinterest"><i class="ico-pinterest"></i></a></li>
-			<li class="widget-si-flickr"><a href="http://flickr.com" title="Flickr"><i class="ico-flickr"></i></a></li>
-			<li class="widget-si-instagram"><a href="http://instagram.com" title="Instagram"><i class="ico-instagram"></i></a></li>
-		</ul> -->
-
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MIT讲义/" style="font-size: 15px;">MIT讲义</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/06/22/Java中的垃圾回收/">Java中的垃圾回收</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/21/面向可维护性的设计模式/">面向可维护性的设计模式</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/19/5个SOLID设计原则和GRASP/">5个SOLID设计原则和GRASP</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/19/面向复用的设计模式/">面向复用的设计模式</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/18/浅谈Java中的Dispatch(分派)和Binding(绑定)/">浅谈Java中的Dispatch(分派)和Binding(绑定)</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
         
       </div>
       
@@ -378,6 +374,8 @@
 
 
 
+  <script src="/js/dialog.js"></script>
+
 
 
 
@@ -461,6 +459,8 @@
   
   <a id="rocket" href="#top" class=""></a>
   <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
   
 </body>
 </html>

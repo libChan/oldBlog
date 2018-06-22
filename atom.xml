@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.libchan.top/"/>
-  <updated>2018-06-21T11:16:03.116Z</updated>
+  <updated>2018-06-22T07:50:17.115Z</updated>
   <id>http://www.libchan.top/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java中的垃圾回收</title>
+    <link href="http://www.libchan.top/2018/06/22/Java%E4%B8%AD%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/"/>
+    <id>http://www.libchan.top/2018/06/22/Java中的垃圾回收/</id>
+    <published>2018-06-22T07:49:27.820Z</published>
+    <updated>2018-06-22T07:50:17.115Z</updated>
+    
+    <content type="html"><![CDATA[<p>Java GC将heap分成不同区域，不同区域采用不同的GC策略<br><a id="more"></a></p><h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><h3 id="Java-内存划分："><a href="#Java-内存划分：" class="headerlink" title="Java 内存划分："></a>Java 内存划分：</h3><p><img src="https://i.imgur.com/2iVNjeI.jpg" alt=""></p><ul><li>Young Generation：只有一小部分对象可较长时间存活，故采用<strong>copy算法</strong>减少GC代价</li><li>Old Generation：使用Mark-Sweep或Mark-Compact算法</li></ul><h3 id="Minor-GC"><a href="#Minor-GC" class="headerlink" title="Minor GC"></a>Minor GC</h3><p>只有当Eden满的时候，才启动Minor GC<br><img src="https://i.imgur.com/YFdaADJ.jpg" alt=""></p><p>被引用的对象被复制到S0或S1，否则被垃圾回收掉：</p><p><img src="https://i.imgur.com/pvFalAK.jpg" alt=""><br>下一次垃圾回收：<br><img src="https://i.imgur.com/22FCRjx.jpg" alt=""><br>S0和S1始终至少有一个为空，下次GC时，Eden复制存活对象到空的区域，非空存活区也进行GC。<br>经历多次Minor GC存活的，被复制到Full GC</p><h3 id="Full-GC"><a href="#Full-GC" class="headerlink" title="Full GC"></a>Full GC</h3><p>如果old generation满了，则启动full GC（MarkSweap-MarkCompact）<br> 当perm generation满了之后，无法存储更多的元数据，也启动full GC</p><p>堆尺寸参数：<br><img src="https://i.imgur.com/pridxQr.jpg" alt=""></p><p>参数设置：<br>Eden+存活区 ： 年老区 = 1：n<br>每个存活区：Eden = 1：n<br>old generation的尺寸不需要设置，根据其他各参数的取值可计算得到</p><h2 id="性能调优工具"><a href="#性能调优工具" class="headerlink" title="性能调优工具"></a>性能调优工具</h2><ul><li>jstat：获取JVM的heap使用和GC的性能统计数据</li><li>jmap：输出内存中的对象分布情况</li><li>jhat：导出heap dump，浏览/查询其中的对象分布情况</li><li>jstack：获取Java线程的stack trace</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Java GC将heap分成不同区域，不同区域采用不同的GC策略&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://www.libchan.top/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://www.libchan.top/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>面向可维护性的设计模式</title>
