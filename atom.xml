@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.libchan.top/"/>
-  <updated>2018-06-22T07:50:17.115Z</updated>
+  <updated>2018-07-28T03:00:13.386Z</updated>
   <id>http://www.libchan.top/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://www.libchan.top/2018/06/22/Java%E4%B8%AD%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/"/>
     <id>http://www.libchan.top/2018/06/22/Java中的垃圾回收/</id>
     <published>2018-06-22T07:49:27.820Z</published>
-    <updated>2018-06-22T07:50:17.115Z</updated>
+    <updated>2018-07-28T03:00:13.386Z</updated>
     
     <content type="html"><![CDATA[<p>Java GC将heap分成不同区域，不同区域采用不同的GC策略<br><a id="more"></a></p><h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><h3 id="Java-内存划分："><a href="#Java-内存划分：" class="headerlink" title="Java 内存划分："></a>Java 内存划分：</h3><p><img src="https://i.imgur.com/2iVNjeI.jpg" alt=""></p><ul><li>Young Generation：只有一小部分对象可较长时间存活，故采用<strong>copy算法</strong>减少GC代价</li><li>Old Generation：使用Mark-Sweep或Mark-Compact算法</li></ul><h3 id="Minor-GC"><a href="#Minor-GC" class="headerlink" title="Minor GC"></a>Minor GC</h3><p>只有当Eden满的时候，才启动Minor GC<br><img src="https://i.imgur.com/YFdaADJ.jpg" alt=""></p><p>被引用的对象被复制到S0或S1，否则被垃圾回收掉：</p><p><img src="https://i.imgur.com/pvFalAK.jpg" alt=""><br>下一次垃圾回收：<br><img src="https://i.imgur.com/22FCRjx.jpg" alt=""><br>S0和S1始终至少有一个为空，下次GC时，Eden复制存活对象到空的区域，非空存活区也进行GC。<br>经历多次Minor GC存活的，被复制到Full GC</p><h3 id="Full-GC"><a href="#Full-GC" class="headerlink" title="Full GC"></a>Full GC</h3><p>如果old generation满了，则启动full GC（MarkSweap-MarkCompact）<br> 当perm generation满了之后，无法存储更多的元数据，也启动full GC</p><p>堆尺寸参数：<br><img src="https://i.imgur.com/pridxQr.jpg" alt=""></p><p>参数设置：<br>Eden+存活区 ： 年老区 = 1：n<br>每个存活区：Eden = 1：n<br>old generation的尺寸不需要设置，根据其他各参数的取值可计算得到</p><h2 id="性能调优工具"><a href="#性能调优工具" class="headerlink" title="性能调优工具"></a>性能调优工具</h2><ul><li>jstat：获取JVM的heap使用和GC的性能统计数据</li><li>jmap：输出内存中的对象分布情况</li><li>jhat：导出heap dump，浏览/查询其中的对象分布情况</li><li>jstack：获取Java线程的stack trace</li></ul>]]></content>
     
@@ -69,7 +69,7 @@
     <link href="http://www.libchan.top/2018/06/19/5%E4%B8%AASOLID%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E5%92%8CGRASP/"/>
     <id>http://www.libchan.top/2018/06/19/5个SOLID设计原则和GRASP/</id>
     <published>2018-06-19T11:56:43.132Z</published>
-    <updated>2018-07-27T14:29:44.349Z</updated>
+    <updated>2018-07-28T02:57:32.751Z</updated>
     
     <content type="html"><![CDATA[<p>面向健壮性编程的设计原则<br><a id="more"></a></p><ul><li><strong>SRP</strong>     The Single Responsibility Principle            单一责任原则</li><li><strong>OCP</strong>        The Open-Closed Principle                  开放-封闭原则</li><li><strong>LSP</strong>         The Liskov Substitution Principle             Liskov替换原则</li><li><strong>DIP</strong>         The Dependency Inversion Principle       依赖转置原则</li><li><strong>ISP</strong>          The Interface Segregation Principle         接口聚合原则</li></ul><h2 id="SRP（单一责任原则）"><a href="#SRP（单一责任原则）" class="headerlink" title="SRP（单一责任原则）"></a>SRP（单一责任原则）</h2><p>需要修改某个类的时候原因有且只有一个。<br>换句话说就是让一个类只承担一种类型责任，那么当这个类需要承当其他类型的责任的时候，就需要分解这个类。</p><blockquote><p>一个类，一个责任。</p></blockquote><p>这是一个违反了SRP的例子：</p><p><img src="https://i.imgur.com/xIWG8Y7.jpg" alt=""></p><h2 id="OCP（开放封闭原则）"><a href="#OCP（开放封闭原则）" class="headerlink" title="OCP（开放封闭原则）"></a>OCP（开放封闭原则）</h2><p><strong>对扩展开放，对修改封闭</strong></p><p>如何实现？抽象！为服务器端的代码（类型）抽象出一个抽象基类。<br><img src="https://i.imgur.com/8fjj0f7.jpg" alt=""></p><p>通过构造一个抽象的Server类：AbstractServer，该抽象类中包含针对所有类型的Server都通用的代码，从而实现了对<strong>修改的封闭</strong>。<br>当出现新的Server类型时，只需从该抽象类中派生出具体的子类ConcreteServer即可，从而支持了对<strong>扩展的开放</strong>。</p><p>感觉OCP和Decorator的思想很相似，面临新的变化时，在原有的基础上独立出另一个功能。</p><h2 id="LSP（-Liskov替换原则）"><a href="#LSP（-Liskov替换原则）" class="headerlink" title="LSP（ Liskov替换原则）"></a>LSP（ Liskov替换原则）</h2><p>子类型必须能够替换父类型。</p><h2 id="ISP（接口分离原则）"><a href="#ISP（接口分离原则）" class="headerlink" title="ISP（接口分离原则）"></a>ISP（接口分离原则）</h2><p>客户端不应该被迫依赖于它们不用的接口。<strong>一个接口或者类应该拥有尽可能少的行为</strong>。</p><p>包含了无用方法的”胖接口”会增加类之间的耦合，可以分解为很多小接口。</p><h2 id="DIP（依赖倒置原则）"><a href="#DIP（依赖倒置原则）" class="headerlink" title="DIP（依赖倒置原则）"></a>DIP（依赖倒置原则）</h2><p><strong>高层模块不应该依赖底层模块，两者都应该依赖其抽象</strong></p><p>为什么细节类不应该彼此紧耦合，而要依赖于抽象？强耦合会导致代码面临新的变化时修改困难，难以扩展。</p><p>发现这一篇博客里的例子将这个想法讲得非常到位：<a href="https://blog.csdn.net/hfreeman2008/article/details/52289571" target="_blank" rel="noopener">依赖倒置原则</a></p><h2 id="GRASP"><a href="#GRASP" class="headerlink" title="GRASP"></a>GRASP</h2><p>General Responsibility Assignment Software Patterns <strong>通用职责分配软件模式</strong></p><p><strong>怎样设计类，分配它们的行为职责，以及明确类之间的相互关系等</strong></p>]]></content>
     
@@ -230,20 +230,6 @@
     
     
       <category term="Maven" scheme="http://www.libchan.top/tags/Maven/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hexo-theme-melody v1.5 supports iframe &amp; slides</title>
-    <link href="http://www.libchan.top/2018/03/06/iframe/"/>
-    <id>http://www.libchan.top/2018/03/06/iframe/</id>
-    <published>2018-03-06T11:57:52.000Z</published>
-    <updated>2018-07-27T14:34:34.731Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
     
   </entry>
   
