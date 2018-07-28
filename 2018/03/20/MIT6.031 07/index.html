@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="MIT-6.031-07"><meta name="keywords" content="MIT讲义"><meta name="author" content="Chan,undefined"><meta name="copyright" content="Chan"><title>MIT-6.031-07 | Chan</title><link rel="shortcut icon" href="/my-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><meta name="msapplication-TileColor" content="#2b5797"><meta name="theme-color" content="#22a2d9"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/gh/upupming/gitalk@36368e5dffd049e956cdbbd751ff96c28d8255cf/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><link rel="manifest" href="/manifest.json"><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#1B9EF3"><meta name="msapplication-TileColor" content="#1B9EF3"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#1B9EF3"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Reading-7-Designing-Specifications"><span class="toc-number">1.</span> <span class="toc-text">Reading 7:Designing Specifications</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deterministic-VS-underdetermined-specs"><span class="toc-number">1.2.</span> <span class="toc-text">Deterministic VS underdetermined specs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Declarative-VS-operational-specs"><span class="toc-number">1.3.</span> <span class="toc-text">Declarative VS operational specs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stronger-VS-weaker-specs"><span class="toc-number">1.4.</span> <span class="toc-text">Stronger VS weaker specs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Diagramming-specification"><span class="toc-number">1.5.</span> <span class="toc-text">Diagramming specification</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://i.imgur.com/I1vTO6e.jpg"></div><div class="author-info__name text-center">Chan</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/libChan" target="_blank">Follow me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">11</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">3</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">3</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.imgur.com/qY9XZLJ.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Chan</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="post-info"><div id="post-title">MIT-6.031-07</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-03-20</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/MIT/">MIT</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">1,292</span><span class="post-meta__separator">|</span><span>阅读时长: 5 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="Reading-7-Designing-Specifications"><a href="#Reading-7-Designing-Specifications" class="headerlink" title="Reading 7:Designing Specifications"></a>Reading 7:Designing Specifications</h1><p>关于MIT6.031课程的理解翻译工作，略粗糙，欢迎指正。<br><a href="http://web.mit.edu/6.031/www/sp17/classes/07-designing-specs/" target="_blank" rel="noopener">MIT-6.031-07 Reading 7 : Designing Specifications</a><br><a id="more"></a></p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>本文主要从不同的specs实例对比中，介绍如何设计specs。</p>
+<ol>
+<li>确定性(deterministic)：规格是否定义明确？例如一个输入对应一个输出，还是可以有多种可能。</li>
+<li>说明性()：规格是否说明“到位”？例如是否说明了如何输入，或者对输出结果的要求。</li>
+<li>强度：是否有足够的数据集支撑？例如一个合理的小数集，或者大集合（显然两者起到不同的作用）。   </li>
+</ol>
+<p>上述三个维度有时不可兼得，则我们根据实际权衡，折中达到最优。</p>
+<h2 id="Deterministic-VS-underdetermined-specs"><a href="#Deterministic-VS-underdetermined-specs" class="headerlink" title="Deterministic VS underdetermined specs"></a>Deterministic VS underdetermined specs</h2><pre><code>static int findFirst(int[] arr, int val) {
+    for (int i = 0; i &lt; arr.length; i++) {
+        if (arr[i] == val) return i;
+    }
+    return arr.length;
+}                   
+
+static int findLast(int[] arr, int val) {
+    for (int i = arr.length - 1 ; i &gt;= 0; i--) {
+        if (arr[i] == val) return i;
+    }
+    return -1;
+}
+</code></pre><p>上面是两个方法,First和Last只是为了区分它们的实现方式。在实际代码中，它们都是<code>find</code>方法。<br>再来看一下<code>find</code>的规格(specification):</p>
+<pre><code>static int findExactlyOne(int[] arr, int val)
+requires: val occurs exactly once in arr
+effects:  returns index i such that arr[i] = val 
+</code></pre><p><strong>这个规格<code>findExactlyOne</code>是确定(deterministic)的</strong>：即当输入满足前置条件时，<code>findFirst</code>和<code>findLast</code>方法都可以正确输出，即达成后置条件。</p>
+<p>这里，还有另一个规格<code>findOneOrMore,AnyIndex</code>：</p>
+<pre><code>static int findOneOrMore,AnyIndex(int[] arr, int val)
+requires: val occurs in arr
+effects:  returns index i such that arr[i] = val
+</code></pre><p>它不同于<code>findExactlyOne</code>的是，前置条件变成了val在arr中出现即可，这样弱化了前置条件，导致这个规格是不确定的。若val多次出现，则effects并没有说明返回的index是哪一个，<strong>它是不确定的</strong>。</p>
+<p>注意，此处的<strong>不确定</strong>并不是传统意义的。费确定性代码指的是，给它相同的输入，可能会有不同的输出。<br>为了避免混淆，我们把这种不确定性称为<strong> underdetermined</strong>。</p>
+<h2 id="Declarative-VS-operational-specs"><a href="#Declarative-VS-operational-specs" class="headerlink" title="Declarative VS operational specs"></a>Declarative VS operational specs</h2><p>大致可以分成两种：<code>Declarative spec</code>和<code>Operational spec</code>。<br>声明性的<code>(Declarative spec)</code>：不会描述细节和中间过程。反而注重描述输出结果的属性，与初始输入的关系。<br>操作性的<code>(Operational spec)</code>：描述了方法执行的步骤，细节等，例如伪代码。</p>
+<p><strong> 对于spec，我们更青睐<code>Declarative spec</code> ,因为它简短，易于理解，且更重要的是，它不会暴露具体实现的细节给客户</strong>。</p>
+<p>但是，有时程序员会在spec里写操作性的实现细节利于维护者维护。注意，这不是一个好习惯！这可以在方法内部进行说明，但一定不要让它出现在spec里。</p>
+<p>举个例子吧：</p>
+<pre><code>static String join(String delimiter, String[] elements)
+effects: append together the strings in elements, but at each step,
+         if there are more elements left, insert delimiter
+</code></pre><p>这是一个操作性的(operational)spec。<br>修改它，让它变得declarative，可以这样：</p>
+<pre><code>effects: returns concatenation of elements in order, 
+         with delimiter inserted between each pair of adjacent elements
+</code></pre><p>更改之后，仅仅说明了属性，没有暴露具体实现。</p>
+<h2 id="Stronger-VS-weaker-specs"><a href="#Stronger-VS-weaker-specs" class="headerlink" title="Stronger VS weaker specs"></a>Stronger VS weaker specs</h2><p>现在我们来考虑这种情况：假设你想要改变一个方法，无视方法的具体实现和spec本身。现在已经有客户采用已有的spec了。是新写一个spec呢？还是用原来的就可以？<br>以上得出，我们需要一个标准来判断两个spec的强弱。S2强于S1，则：</p>
+<ul>
+<li>S2的前置条件弱于S1</li>
+<li>S2的后置条件强于S1</li>
+</ul>
+<blockquote>
+<p>简言之，想要加强一个spec，<strong>弱化前置，强化后置</strong>。</p>
+</blockquote>
+<p>为什么要强化spec？取代原有spec。<br>发现了没，这种“强化升级”，其实也提升了用户体验。减少对用户的需求，却增加了“回报”，让用户放心。</p>
+<p>来，再看看我们之前提到的specs：</p>
+<pre><code>static int findExactlyOne(int[] a, int val)
+requires: val occurs exactly once in a
+effects:  returns index i such that a[i] = val
+</code></pre><p>弱化前置条件：</p>
+<pre><code>static int findOneOrMore,AnyIndex(int[] a, int val)
+requires: val occurs at least once in a
+effects:  returns index i such that a[i] = val
+</code></pre><p>强化后置条件：</p>
+<pre><code>static int findOneOrMore,FirstIndex(int[] a, int val)
+requires: val occurs at least once in a
+effects:  returns lowest index i such that a[i] = val
+</code></pre><p>再强化后置条件：</p>
+<pre><code>static int findCanBeMissing(int[] a, int val)
+requires: nothing
+effects:  returns index i such that a[i] = val,or -1 if no such i
+</code></pre><h2 id="Diagramming-specification"><a href="#Diagramming-specification" class="headerlink" title="Diagramming specification"></a>Diagramming specification</h2><p>我们可以利用图形表示spec，往往更清晰更直观。</p>
+<ul>
+<li>假设Java世界是一个无限空间，我们用一个点代表一个方法，就像这样：<br><img src="https://i.imgur.com/NLsYCzi.jpg" alt=""></li>
+</ul>
+<ul>
+<li><p>spec是有一个合理范围的，对于能实现该spec的方法，我们把它放在范围内，反之则在范围外。<br><code>findFirst</code>和<code>findLast</code>都满足<code>findOneOrMore,AnyIndex</code>，所以在范围内：<br><img src="https://i.imgur.com/8caEGzH.jpg" alt=""></p>
+</li>
+<li><p>再后来我们做了什么事情呢？我们强化了<code>findOneOrMore,AnyIndex</code>，问题来了，怎么表示？<br>1.强化后置：<br>这意味着程序员需要对输出更严格，这导致有的方法之前满足<code>findOneOrMore,AnyIndex</code>(S1)，但现在不满足<code>findOneOrMore,FirstIndex</code>(S2)，那它在S2外，S1里。<br>2.弱化前置：<br>这意味着要处理更多的输入情况。<br>下图中，S2强于S1，<code>findLast</code>在S2范围外，<code>findFirst</code>满足S2，在范围内。<br><img src="https://i.imgur.com/9qoCpZX.jpg" alt=""></p>
+</li>
+</ul>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.libchan.top/2018/03/20/MIT6.031 07/">http://www.libchan.top/2018/03/20/MIT6.031 07/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.libchan.top" target="_blank">Chan</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MIT讲义/">MIT讲义</a></div><div class="addthis_inline_share_toolbox pull-right"></div><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b5be0ccac7e2958" async></script><nav id="pagination"><div class="prev-post pull-left"><a href="/2018/03/23/MIT6.031 13/"><i class="fa fa-chevron-left">  </i><span>MIT-6.031-13</span></a></div><div class="next-post pull-right"><a href="/2018/03/11/Maven/"><span>Maven初步学习</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '0ff32999b28eb5d18c15',
+  clientSecret: '4639ec1d6914282c08adaf4f649734107f2ce53e',
+  repo: 'libChan.github.io',
+  owner: 'libChan',
+  admin: 'libChan',
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN'
+})
+gitalk.render('gitalk-container')</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2018 By Chan</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Thanks for visiting my blog!</div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script><script src="/js/search/local-search.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>

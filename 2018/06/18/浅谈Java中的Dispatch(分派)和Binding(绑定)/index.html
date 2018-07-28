@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="浅谈Java中的Dispatch(分派)和Binding(绑定)"><meta name="keywords" content="Java"><meta name="author" content="Chan,undefined"><meta name="copyright" content="Chan"><title>浅谈Java中的Dispatch(分派)和Binding(绑定) | Chan</title><link rel="shortcut icon" href="/my-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><meta name="msapplication-TileColor" content="#2b5797"><meta name="theme-color" content="#22a2d9"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/gh/upupming/gitalk@36368e5dffd049e956cdbbd751ff96c28d8255cf/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><link rel="manifest" href="/manifest.json"><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#1B9EF3"><meta name="msapplication-TileColor" content="#1B9EF3"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#1B9EF3"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Binding：绑定"><span class="toc-number">1.</span> <span class="toc-text">Binding：绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dispatch：分派"><span class="toc-number">2.</span> <span class="toc-text">Dispatch：分派</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://i.imgur.com/I1vTO6e.jpg"></div><div class="author-info__name text-center">Chan</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/libChan" target="_blank">Follow me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">11</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">3</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">3</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.imgur.com/qY9XZLJ.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Chan</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span></div><div id="post-info"><div id="post-title">浅谈Java中的Dispatch(分派)和Binding(绑定)</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-06-18</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Java/">Java</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">384</span><span class="post-meta__separator">|</span><span>阅读时长: 1 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>Java中，绑定是指将方法名和具体方法绑定的过程。</p>
+<p>而分派是在运行阶段，对已经绑定好的方法实行分配，决定该调用哪个方法。</p>
+<a id="more"></a>
+<h2 id="Binding：绑定"><a href="#Binding：绑定" class="headerlink" title="Binding：绑定"></a>Binding：绑定</h2><p>绑定可以分为<strong>前期绑定</strong>和<strong>后期绑定</strong></p>
+<ol>
+<li><p>前期/静态绑定</p>
+<p>Java中的static，final，private的方法属于前期绑定。需要注意的是，Overload是静态绑定的。静态绑定在编译阶段完成。</p>
+</li>
+<li><p>后期/动态绑定</p>
+<p>对Override的方法进行绑定，在运行时根据具体对象的类型进行绑定。</p>
+<p>编译阶段，编译器还不知道对象的具体类型（例如不知道该对象调用子类的方法还是父类的方法）。</p>
+<p>以父类型与子类型的转换为例，动态绑定大致过程如下：</p>
+<ul>
+<li>编译器列出对象可能的所有方法表（父类+子类等）</li>
+<li>运行时，匹配方法。</li>
+</ul>
+</li>
+</ol>
+<h2 id="Dispatch：分派"><a href="#Dispatch：分派" class="headerlink" title="Dispatch：分派"></a>Dispatch：分派</h2><p>先绑定，后分派。分派决定在执行阶段执行哪一段代码。</p>
+<ol>
+<li><p>静态分派：</p>
+<p>若绑定是确定的，一一对应，那么执行静态分派，在编译阶段即可执行。</p>
+</li>
+<li><p>动态分派：</p>
+<p>方法绑定了多段代码，在运行阶段根据具体类型的对象决定执行哪段代码，</p>
+<p>在运行阶段执行。</p>
+</li>
+</ol>
+<p>Overload：提前绑定+动态分配</p>
+<p>Override：延迟绑定+动态分配</p>
+<p>所以<strong>动态分配不一定是延迟绑定，但延迟绑定一定意味着动态分配</strong>。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.libchan.top/2018/06/18/浅谈Java中的Dispatch(分派)和Binding(绑定)/">http://www.libchan.top/2018/06/18/浅谈Java中的Dispatch(分派)和Binding(绑定)/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.libchan.top" target="_blank">Chan</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="addthis_inline_share_toolbox pull-right"></div><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b5be0ccac7e2958" async></script><nav id="pagination"><div class="prev-post pull-left"><a href="/2018/06/19/面向复用的设计模式/"><i class="fa fa-chevron-left">  </i><span>面向复用的设计模式</span></a></div><div class="next-post pull-right"><a href="/2018/06/03/记几个Lab过程中的bug/"><span>记几个Lab过程中的bug</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '0ff32999b28eb5d18c15',
+  clientSecret: '4639ec1d6914282c08adaf4f649734107f2ce53e',
+  repo: 'libChan.github.io',
+  owner: 'libChan',
+  admin: 'libChan',
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN'
+})
+gitalk.render('gitalk-container')</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2018 By Chan</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Thanks for visiting my blog!</div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script><script src="/js/search/local-search.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
