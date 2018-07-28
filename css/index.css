@@ -565,7 +565,11 @@ footer {
   background-size: initial;
 }
 #site-info {
-  padding: 14rem 1rem;
+  padding: 15rem 1rem;
+  background-repeat: no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  background-size: 100% 100%;
 }
 #site-title,
 #site-sub-title {
