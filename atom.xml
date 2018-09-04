@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.libchan.top/"/>
-  <updated>2018-07-28T03:00:13.386Z</updated>
+  <updated>2018-09-04T14:44:41.810Z</updated>
   <id>http://www.libchan.top/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>遗传算法(GA)</title>
+    <link href="http://www.libchan.top/2018/09/04/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95(GA)/"/>
+    <id>http://www.libchan.top/2018/09/04/遗传算法(GA)/</id>
+    <published>2018-09-04T14:43:17.064Z</published>
+    <updated>2018-09-04T14:44:41.810Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文没有介绍遗传算法的思想，只浅显粗略地记录了学习模型过程中的几个要点。</p><h3 id="遗传算法的参数设计原则"><a href="#遗传算法的参数设计原则" class="headerlink" title="遗传算法的参数设计原则"></a>遗传算法的参数设计原则</h3><h4 id="种群的规模"><a href="#种群的规模" class="headerlink" title="种群的规模"></a>种群的规模</h4><p>种群规模太小，会出现近亲交配，出现病态基因；种群规模太大，会导致结果难以收敛且浪费资源，所以<strong>种群规模的一般为0~100。</strong></p><h4 id="变异概率"><a href="#变异概率" class="headerlink" title="变异概率"></a>变异概率</h4><p>通常认为两个优良个体交叉产生优良后代的概率远大于变异，所以<strong>变异的概率一般为0.0001~0.2。</strong></p><h4 id="进化代数"><a href="#进化代数" class="headerlink" title="进化代数"></a>进化代数</h4><p><strong>一般取100~500。</strong></p><h3 id="适应度函数的调整"><a href="#适应度函数的调整" class="headerlink" title="适应度函数的调整"></a>适应度函数的调整</h3><p>遗传算法中，一个个体(解)的好坏用适应度函数值来评价。</p><p>引用自：<a href="https://www.zhihu.com/question/40102661/answer/263213394" target="_blank" rel="noopener">知乎：遗传算法中怎么构建适应度函数</a></p><blockquote><p>适应度函数一般要求非负，可以将目标函数映射成一个值域为非负的函数，如果目标函数本身就是一个非负的函数，对于求最大值的问题，可以直接使用目标函数作为适应度函数，但是对于求最小值的问题，一般要将目标函数处理一下，即目标函数值越小，适应度越高且非负这样的映射关系。</p></blockquote><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>《MATLAB在数学建模中的应用》中有求解案例，很容易可以找到配套的源代码。</p><p>求解最大值的案例也可以参照<a href="https://github.com/yanshengjia/artificial-intelligence/tree/master/genetic-algorithm-for-functional-maximum-problem" target="_blank" rel="noopener">genetic-algorithm</a>。</p><p>MATLAB中的GA工具也可以用于求解。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;本文没有介绍遗传算法的思想，只浅显粗略地记录了学习模型过程中的几个要点。&lt;/p&gt;
+&lt;h3 id=&quot;遗传算法的参数设计原则&quot;&gt;&lt;a href=&quot;#遗传算法的参数设计原则&quot; class=&quot;headerlink&quot; title=&quot;遗传算法的参数设计原则&quot;&gt;&lt;/a&gt;遗传算法的参数设计
+      
+    
+    </summary>
+    
+      <category term="数学建模" scheme="http://www.libchan.top/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/"/>
+    
+    
+      <category term="数学建模" scheme="http://www.libchan.top/tags/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/"/>
+    
+  </entry>
   
   <entry>
     <title>Java中的垃圾回收</title>

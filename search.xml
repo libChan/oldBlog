@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[遗传算法(GA)]]></title>
+    <url>%2F2018%2F09%2F04%2F%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95(GA)%2F</url>
+    <content type="text"><![CDATA[本文没有介绍遗传算法的思想，只浅显粗略地记录了学习模型过程中的几个要点。 遗传算法的参数设计原则种群的规模种群规模太小，会出现近亲交配，出现病态基因；种群规模太大，会导致结果难以收敛且浪费资源，所以种群规模的一般为0~100。 变异概率通常认为两个优良个体交叉产生优良后代的概率远大于变异，所以变异的概率一般为0.0001~0.2。 进化代数一般取100~500。 适应度函数的调整遗传算法中，一个个体(解)的好坏用适应度函数值来评价。 引用自：知乎：遗传算法中怎么构建适应度函数 适应度函数一般要求非负，可以将目标函数映射成一个值域为非负的函数，如果目标函数本身就是一个非负的函数，对于求最大值的问题，可以直接使用目标函数作为适应度函数，但是对于求最小值的问题，一般要将目标函数处理一下，即目标函数值越小，适应度越高且非负这样的映射关系。 参考《MATLAB在数学建模中的应用》中有求解案例，很容易可以找到配套的源代码。 求解最大值的案例也可以参照genetic-algorithm。 MATLAB中的GA工具也可以用于求解。]]></content>
+      <categories>
+        <category>数学建模</category>
+      </categories>
+      <tags>
+        <tag>数学建模</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Java中的垃圾回收]]></title>
     <url>%2F2018%2F06%2F22%2FJava%E4%B8%AD%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%2F</url>
     <content type="text"><![CDATA[Java GC将heap分成不同区域，不同区域采用不同的GC策略 垃圾回收Java 内存划分： Young Generation：只有一小部分对象可较长时间存活，故采用copy算法减少GC代价 Old Generation：使用Mark-Sweep或Mark-Compact算法 Minor GC只有当Eden满的时候，才启动Minor GC 被引用的对象被复制到S0或S1，否则被垃圾回收掉： 下一次垃圾回收：S0和S1始终至少有一个为空，下次GC时，Eden复制存活对象到空的区域，非空存活区也进行GC。经历多次Minor GC存活的，被复制到Full GC Full GC如果old generation满了，则启动full GC（MarkSweap-MarkCompact） 当perm generation满了之后，无法存储更多的元数据，也启动full GC 堆尺寸参数： 参数设置：Eden+存活区 ： 年老区 = 1：n每个存活区：Eden = 1：nold generation的尺寸不需要设置，根据其他各参数的取值可计算得到 性能调优工具 jstat：获取JVM的heap使用和GC的性能统计数据 jmap：输出内存中的对象分布情况 jhat：导出heap dump，浏览/查询其中的对象分布情况 jstack：获取Java线程的stack trace]]></content>
