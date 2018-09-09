@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content=""><meta name="keywords" content=""><meta name="author" content="Chan,undefined"><meta name="copyright" content="Chan"><title>尝试积极更新 | Chan</title><link rel="shortcut icon" href="/my-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><meta name="msapplication-TileColor" content="#2b5797"><meta name="theme-color" content="#22a2d9"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/gh/upupming/gitalk@36368e5dffd049e956cdbbd751ff96c28d8255cf/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><link rel="manifest" href="/manifest.json"><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#1B9EF3"><meta name="msapplication-TileColor" content="#1B9EF3"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#1B9EF3"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#粒子群算法（PSO）"><span class="toc-number">1.</span> <span class="toc-text">粒子群算法（PSO）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法流程"><span class="toc-number">1.1.</span> <span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PSO的参数选择"><span class="toc-number">1.2.</span> <span class="toc-text">PSO的参数选择</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://i.imgur.com/I1vTO6e.jpg"></div><div class="author-info__name text-center">Chan</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/libChan" target="_blank">关注我</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">12</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">4</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">4</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.imgur.com/qY9XZLJ.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Chan</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a><a class="site-page" href="/">主页</a><a class="site-page" href="/archives">归档</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a><a class="site-page" href="/about">关于</a></span></div><div id="post-info"><div id="post-title">无题</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-09-09</time><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">793</span><span class="post-meta__separator">|</span><span>阅读时长: 3 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="粒子群算法（PSO）"><a href="#粒子群算法（PSO）" class="headerlink" title="粒子群算法（PSO）"></a>粒子群算法（PSO）</h1><a id="more"></a>
+<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><p><img src="C:\Users\单心茹\Desktop\未命名文件.png" alt=""></p>
+<ul>
+<li>所有的粒子都由一个fitness-function(适应值)以判断目前的位置好坏。</li>
+<li>每一个粒子必须赋予记忆功能，能记住所搜寻到的最佳位置。</li>
+<li>每一个粒子还有一个速度以决定飞行的距离和方向。这个速度根据它本身的飞行经验以及同伴的飞行经验进行动态调整。</li>
+</ul>
+<p>PSO的核心是速度更新和位置更新</p>
+<p><strong>速度更新公式：</strong><br>$$<br>v^{k}<em>{id} = w *v^{k-1}</em>{id} +<br>c_{1}<em>r_{1}</em>(pbest_{id} - x^{k-1}<em>{id}) + c</em>{2}<em>r_{2}</em>(gbest_{d} - x^{k-1}_{id})<br>$$<br>即<strong>自身速度惯性+自身的历史经验+全部人的历史经验</strong></p>
+<p>位置更新公式：<br>$$<br>x^{k}<em>{id} = x^{k-1}</em>{id} + v^{k-1}<em>{id}<br>$$<br>在公式中下标$i$表示第$i$个粒子，下标$d$表示第$d$个维度，上标$k$表示当前时刻。则$v^{k}</em>{id}$表示当前时刻，第$i$个粒子，第$d$个维度的速度。其他参数含义：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$v$</td>
+<td>速度</td>
+</tr>
+<tr>
+<td>$w$</td>
+<td>为惯性权重，用于记录当前自身的速度，通常为非负数，调节解空间的搜索范围，为0时则失去自身速度的记忆</td>
+</tr>
+<tr>
+<td>$c_{1}$</td>
+<td>表示加速度，调节学习的最大步长，当c1c1为0则不考虑自身经验，会导致丧失群体多样性，就是每个点都向当前最高点移动。</td>
+</tr>
+<tr>
+<td>$c_{2}$</td>
+<td>表示加速度，调节学习的最大步长、解的搜索空间，当c2c2为0则不考虑其他人的经验，没有信息共享，会导致收敛变慢。</td>
+</tr>
+<tr>
+<td>$pbest$</td>
+<td>自身历史经验中的适应度最高的位置信息</td>
+</tr>
+<tr>
+<td>$gbest$</td>
+<td>所有粒子历史经验中适应度最高的位置信息</td>
+</tr>
+</tbody>
+</table>
+<h2 id="PSO的参数选择"><a href="#PSO的参数选择" class="headerlink" title="PSO的参数选择"></a>PSO的参数选择</h2><ul>
+<li>粒子数 $m$</li>
+</ul>
+<p>m的取值一般为20~40。对于多数问题，30个例子足够用了。数量越多，搜索范围越大，越容易找到全局最优解，运行时间越长。</p>
+<ul>
+<li>惯性因子</li>
+</ul>
+<p>对粒子群的收敛性起很大作用，$\omega$越大，粒子飞翔幅度越大，容易错失局部寻优的能力，全局搜索能力增强。通过<strong>调整$\omega$来控制离世俗的和当前速度的影响程度，形成局部和全局优化的折中。</strong>如果$\omega$是变量，在迭代开始时将$\omega$设置得较大，在迭代过程中逐步减小。这样在开始优化时搜索较大的解空间，找到合适的种子之后在小区域内精细搜索，$\omega$也可以取[0,1]间的随机数。若$\omega$是定值，常取0.6~0.75间的合理值。</p>
+<ul>
+<li>加速常数$c_{1}$和$c_{2}$</li>
+</ul>
+<p>简单的常规问题，一般取$c_{1} = c_{2} = 2.0$。</p>
+<ul>
+<li>最大飞翔速度</li>
+</ul>
+<p>速度的改变是随机的，但粒子的速度需要受到限制，否则问题空间可能会越来越广泛，趋近无穷。使用$v_{max}$对粒子运动速度进行限制，防止搜索范围毫无意义的发散，通常设置为每维变化范围的10%~20%。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.libchan.top/2018/09/09/粒子群算法（PSO）/">http://www.libchan.top/2018/09/09/粒子群算法（PSO）/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.libchan.top" target="_blank">Chan</a>！</span></div></div><div class="post-meta__tag-list"></div><div class="addthis_inline_share_toolbox pull-right"></div><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b5be0ccac7e2958" async></script><nav id="pagination"><div class="next-post pull-right"><a href="/2018/09/04/遗传算法(GA)/"><span>遗传算法(GA)</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '0ff32999b28eb5d18c15',
+  clientSecret: '4639ec1d6914282c08adaf4f649734107f2ce53e',
+  repo: 'libChan.github.io',
+  owner: 'libChan',
+  admin: 'libChan',
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN'
+})
+gitalk.render('gitalk-container')</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2018 By Chan</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Thanks for visiting my blog!</div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script><script src="/js/search/local-search.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>

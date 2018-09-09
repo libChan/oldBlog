@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.libchan.top/"/>
-  <updated>2018-09-04T15:49:33.330Z</updated>
+  <updated>2018-09-09T04:35:59.729Z</updated>
   <id>http://www.libchan.top/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://www.libchan.top/2018/09/09/%E7%B2%92%E5%AD%90%E7%BE%A4%E7%AE%97%E6%B3%95%EF%BC%88PSO%EF%BC%89/"/>
+    <id>http://www.libchan.top/2018/09/09/粒子群算法（PSO）/</id>
+    <published>2018-09-09T04:35:59.728Z</published>
+    <updated>2018-09-09T04:35:59.729Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="粒子群算法（PSO）"><a href="#粒子群算法（PSO）" class="headerlink" title="粒子群算法（PSO）"></a>粒子群算法（PSO）</h1><a id="more"></a><h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><p><img src="C:\Users\单心茹\Desktop\未命名文件.png" alt=""></p><ul><li>所有的粒子都由一个fitness-function(适应值)以判断目前的位置好坏。</li><li>每一个粒子必须赋予记忆功能，能记住所搜寻到的最佳位置。</li><li>每一个粒子还有一个速度以决定飞行的距离和方向。这个速度根据它本身的飞行经验以及同伴的飞行经验进行动态调整。</li></ul><p>PSO的核心是速度更新和位置更新</p><p><strong>速度更新公式：</strong><br>$$<br>v^{k}<em>{id} = w *v^{k-1}</em>{id} +<br>c_{1}<em>r_{1}</em>(pbest_{id} - x^{k-1}<em>{id}) + c</em>{2}<em>r_{2}</em>(gbest_{d} - x^{k-1}_{id})<br>$$<br>即<strong>自身速度惯性+自身的历史经验+全部人的历史经验</strong></p><p>位置更新公式：<br>$$<br>x^{k}<em>{id} = x^{k-1}</em>{id} + v^{k-1}<em>{id}<br>$$<br>在公式中下标$i$表示第$i$个粒子，下标$d$表示第$d$个维度，上标$k$表示当前时刻。则$v^{k}</em>{id}$表示当前时刻，第$i$个粒子，第$d$个维度的速度。其他参数含义：</p><table><thead><tr><th>参数</th><th>含义</th></tr></thead><tbody><tr><td>$v$</td><td>速度</td></tr><tr><td>$w$</td><td>为惯性权重，用于记录当前自身的速度，通常为非负数，调节解空间的搜索范围，为0时则失去自身速度的记忆</td></tr><tr><td>$c_{1}$</td><td>表示加速度，调节学习的最大步长，当c1c1为0则不考虑自身经验，会导致丧失群体多样性，就是每个点都向当前最高点移动。</td></tr><tr><td>$c_{2}$</td><td>表示加速度，调节学习的最大步长、解的搜索空间，当c2c2为0则不考虑其他人的经验，没有信息共享，会导致收敛变慢。</td></tr><tr><td>$pbest$</td><td>自身历史经验中的适应度最高的位置信息</td></tr><tr><td>$gbest$</td><td>所有粒子历史经验中适应度最高的位置信息</td></tr></tbody></table><h2 id="PSO的参数选择"><a href="#PSO的参数选择" class="headerlink" title="PSO的参数选择"></a>PSO的参数选择</h2><ul><li>粒子数 $m$</li></ul><p>m的取值一般为20~40。对于多数问题，30个例子足够用了。数量越多，搜索范围越大，越容易找到全局最优解，运行时间越长。</p><ul><li>惯性因子</li></ul><p>对粒子群的收敛性起很大作用，$\omega$越大，粒子飞翔幅度越大，容易错失局部寻优的能力，全局搜索能力增强。通过<strong>调整$\omega$来控制离世俗的和当前速度的影响程度，形成局部和全局优化的折中。</strong>如果$\omega$是变量，在迭代开始时将$\omega$设置得较大，在迭代过程中逐步减小。这样在开始优化时搜索较大的解空间，找到合适的种子之后在小区域内精细搜索，$\omega$也可以取[0,1]间的随机数。若$\omega$是定值，常取0.6~0.75间的合理值。</p><ul><li>加速常数$c_{1}$和$c_{2}$</li></ul><p>简单的常规问题，一般取$c_{1} = c_{2} = 2.0$。</p><ul><li>最大飞翔速度</li></ul><p>速度的改变是随机的，但粒子的速度需要受到限制，否则问题空间可能会越来越广泛，趋近无穷。使用$v_{max}$对粒子运动速度进行限制，防止搜索范围毫无意义的发散，通常设置为每维变化范围的10%~20%。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;粒子群算法（PSO）&quot;&gt;&lt;a href=&quot;#粒子群算法（PSO）&quot; class=&quot;headerlink&quot; title=&quot;粒子群算法（PSO）&quot;&gt;&lt;/a&gt;粒子群算法（PSO）&lt;/h1&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>遗传算法(GA)</title>
