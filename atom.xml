@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.libchan.top/"/>
-  <updated>2018-09-12T03:43:18.465Z</updated>
+  <updated>2018-09-04T15:49:33.330Z</updated>
   <id>http://www.libchan.top/</id>
   
   <author>
@@ -15,27 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="http://www.libchan.top/2018/09/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%86%B3%E7%AD%96%E6%A0%91/"/>
-    <id>http://www.libchan.top/2018/09/12/机器学习——决策树/</id>
-    <published>2018-09-12T03:38:47.226Z</published>
-    <updated>2018-09-12T03:43:18.465Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="机器学习——决策树"><a href="#机器学习——决策树" class="headerlink" title="机器学习——决策树"></a>机器学习——决策树</h1><p>决策树的学习过程通常包含：<strong>特征选择，决策树的生成和决策树的修剪</strong></p><h2 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h2><p><strong>评估某特征的分类能力大小</strong>，通常准则是<strong>信息增益和增益比</strong></p><p>随机变量X的<strong>熵</strong>定义为：<br>$$<br>H（X）= - \sum^{n}<em>{i=1}p</em>{i}log_{2}p_{i}<br>$$<br>若有随机变量$(X,Y), H(Y|X)$表示已知随机变量$X$的条件下随机变量$Y$的不确定性，即<strong>条件熵</strong>：<br>$$<br>H(Y|X) = \sum^{n}<em>{i=1}p</em>{i}H(Y|X=x_{i})<br>$$<br><strong>互信息（在决策树学习中也为信息增益）</strong>：<br>$$<br>g(D,A) = H(D) - H(D|A)<br>$$<br>即为得知A特征的信息而使得D的信息不确定性减少的程度。</p><p><strong>信息增益比：</strong><br>$$<br>g_{R}(D,A) = \frac{g(D,A)}{H(D)}<br>$$</p><h2 id="决策树的生成"><a href="#决策树的生成" class="headerlink" title="决策树的生成"></a>决策树的生成</h2><h3 id="ID3算法"><a href="#ID3算法" class="headerlink" title="ID3算法"></a>ID3算法</h3><p>ID3算法的核心是在决策树<strong>各个子节点上应用信息增益准则选择特征</strong>，递归的构建决策树，具体方法是：从根节点开始，对节点计算所有可能的特征的信息增益，选择信息增益最大的特征作为节点的特征，由该特征的不同取值建立子节点；再对子节点递归调用以上方法，构建决策树。</p><p>直到所有特征的信息增益均很小或没有特征可以选择为止。最后得到一个决策树。</p><p>ID3生成的决策树往往对训练数据的分类很准确，而对未知的预测数据的分类没那么准确，即出现<strong>过拟合</strong>现象。</p><h3 id="C4-5生成算法"><a href="#C4-5生成算法" class="headerlink" title="C4.5生成算法"></a>C4.5生成算法</h3><p>它是对ID3算法的改进，相对于ID3算法主要有以下几个改进</p><ul><li><p>用信息增益比来选择属性</p></li><li><p>在决策树的构造过程中对树进行剪枝</p></li><li><p>对非离散数据也能处理</p></li><li><p>能够对不完整数据进行处理</p></li></ul><p>算法流程：</p><p><img src="C:\Users\单心茹\AppData\Local\Temp\1536723460049.png" alt="1536723460049"></p><h2 id="决策树的剪枝"><a href="#决策树的剪枝" class="headerlink" title="决策树的剪枝"></a>决策树的剪枝</h2><p>解决生成决策树的过拟合，可以采用简化的方法，即剪枝。</p><p>从已生成的树上裁掉一些子树或叶结点，并将其根结点或父结点作为新的结点。</p><p>我们对<strong>决策树整体的损失函数极小化</strong></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;机器学习——决策树&quot;&gt;&lt;a href=&quot;#机器学习——决策树&quot; class=&quot;headerlink&quot; title=&quot;机器学习——决策树&quot;&gt;&lt;/a&gt;机器学习——决策树&lt;/h1&gt;&lt;p&gt;决策树的学习过程通常包含：&lt;strong&gt;特征选择，决策树的生成和决策树的修剪&lt;/s
-      
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>遗传算法(GA)</title>
